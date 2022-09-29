@@ -5,7 +5,7 @@
         </div>
 
         <div class="navbar-brand">
-            <a href="index.html"><img src="../assets/images/logo.svg" alt="Lucid Logo" class="img-responsive logo"></a>                
+            <a href="index.html"><img src="{{asset('backend/assets/images/logo.svg')}}" alt="Lucid Logo" class="img-responsive logo"></a>                
         </div>
         
         <div class="navbar-right">
@@ -105,7 +105,16 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="page-login.html" class="icon-menu"><i class="icon-login"></i></a>
+                        <a class="dropdown-item icon-menu" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();">
+                         {{ __('Logout') }}
+                         <i class="icon-login"></i>
+                     </a>
+
+                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                         @csrf
+                     </form>
                     </li>
                 </ul>
             </div>
