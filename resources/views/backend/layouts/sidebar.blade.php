@@ -45,8 +45,8 @@
                         <li class="active"><a href="index.html"><i class="icon-grid"></i><span>Dashboard</span></a></li>
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-picture"></i><span>Banner Management</span> </a>
                             <ul>
-                                <li><a href="departments.html">All Departments</a></li>
-                                <li><a href="add-departments.html">Add Departments</a></li>
+                                <li><a href="{{route('banner.index')}}">All Banners</a></li>
+                                <li><a href="{{route('banner.create')}}">Add Banner</a></li>
                             </ul>
                         </li>
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="fas fa-sitemap"></i><span>category Management</span> </a>
