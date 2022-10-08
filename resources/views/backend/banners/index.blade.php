@@ -49,7 +49,9 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <input type="checkbox" name="toogle" value="{{$item->id}}" data-toggle="switchbutton" {{$item->status=='active' ? 'checked' : '' }} data-onlabel="active" data-offlabel="inactive"
+                                            <input type="checkbox" name="toogle" value="{{$item->id}}" 
+                                            data-toggle="switchbutton" {{$item->status=='active' ? 'checked' : '' }} 
+                                            data-onlabel="active" data-offlabel="inactive"
                                              data-size="sm" data-onstyle="success" data-offstyle="danger">
                                         </td>
                                         <td>

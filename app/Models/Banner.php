@@ -13,7 +13,7 @@ class Banner extends Model
         'slug',
         'description',
         'photo',
-        'status ',
+        'status',
         'condition'
     ];
 }

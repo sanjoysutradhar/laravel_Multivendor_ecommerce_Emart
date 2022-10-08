@@ -53,9 +53,10 @@ class BannerController extends Controller
             'photo'=>'required',
             'description'=>'string|nullable',
             'condition'=>'nullable|in:banner,promo',
-            'status'=>'nullable|in:active,inactive'
+            'status'=>'nullable|in:active,inactive',
         ]);
         $data=$request->all();
+        // dd($data);
         $slug=Str::slug($request->input('title'));
         $slug_count=Banner::where('slug',$slug)->count();
         if($slug_count>0){
@@ -65,6 +66,7 @@ class BannerController extends Controller
         // dd($data);
         $status=Banner::create($data);
         if($status){
+            // return back()->with('success','Successfully created banner');
             return redirect()->route('banner.index')->with('success','Successfully created banner');
         }
         else{

@@ -87,7 +87,7 @@
                                     <select name="status" class="form-control show-tick">
                                         <option value="">-- status --</option>
                                         <option value="active" {{old('status')=='active'?'selected': ''}}>Active</option>
-                                        <option value="inactive" {{old('status')=='inactive'?'selected': ''}}>inactive</option>
+                                        <option value="inactive" {{old('status')=='inactive'?'selected': ''}}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
