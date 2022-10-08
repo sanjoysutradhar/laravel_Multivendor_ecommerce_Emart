@@ -26,6 +26,9 @@ use App\Http\Controllers\UserController;
 
 Route::get('/',[IndexController::class,'home'])->name('home');
 
+
+// product category
+Route::get('/product-category/{slug}/',[IndexController::class,'ProductCategory'])->name('product.category');
 //Frontend end section
 
 
@@ -45,7 +48,7 @@ Route::post('/banner_status',[BannerController::class,'banner_status'])->name('b
 Route::resource('/category',CategoryController::class);
 Route::post('/category_status',[CategoryController::class,'category_status'])->name('category.status');
 
-Route::post('/category/child/{$id}',[CategoryController::class,'getChildByParentID'])->name('category.child');
+Route::post('/category/child/{id}',[CategoryController::class,'getChildByParentID'])->name('category.child');
 
 //brand section
 Route::resource('/brand',BrandController::class);

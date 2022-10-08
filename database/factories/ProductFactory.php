@@ -31,7 +31,7 @@ class ProductFactory extends Factory
             'vendor_id'=>fake()->randomElement(User::pluck('id')->toArray()),
             'cat_id'=>fake()->randomElement(Category::where('is_parent',1)->pluck('id')->toArray()),
             'child_cat_id'=>fake()->randomElement(Category::where('is_parent',0)->pluck('id')->toArray()),
-            'photo'=>fake()->imageUrl(200,200),
+            'photo'=>fake()->imageUrl(350,350),
             'price'=>fake()->randomFloat(3, 0, 1000),
             'offer_price'=>fake()->randomFloat(100, 0, 1000),
             'discount'=>fake()->randomFloat(5, 0, 70),
