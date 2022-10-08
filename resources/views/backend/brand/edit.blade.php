@@ -6,11 +6,11 @@
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth">
-                        <i class="fa fa-arrow-left"></i></a>Add Category</h2>
+                        Brands<i class="fa fa-arrow-left"></i></a>Add Brands</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('admin')}}"><i class="icon-home"></i></a></li>                            
-                        <li class="breadcrumb-item">Category</li>
-                        <li class="breadcrumb-item active">Add Category</li>
+                        <li class="breadcrumb-item">Brands</li>
+                        <li class="breadcrumb-item active">Add Brands</li>
                     </ul>
                 </div>            
                
@@ -44,14 +44,14 @@
                         </ul>
                     </div>
                     <div class="body">
-                        <form action="{{route('category.update',$category->id)}}" method="POST">
+                        <form action="{{route('brand.update',$brand->id)}}" method="POST">
                             @csrf
                             @method('patch')
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <label for="">Title<span class="text-danger">*</span></label>
-                                        <input type="text" name="title" class="form-control" value="{{$category->title}}" placeholder="title">
+                                        <input type="text" name="title" class="form-control" value="{{$brand->title}}" placeholder="title">
                                     </div>
                                 </div>
 
@@ -64,41 +64,18 @@
                                                 <i class="fa fa-picture-o"></i> Choose
                                               </a>
                                             </span>
-                                            <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$category->photo}}">
+                                            <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$brand->photo}}">
                                           </div>
                                           <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                                     </div>
                                 </div>
-            
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Summary</label>
-                                        <textarea id="summery" name="summery" class="form-control" placeholder="Write some text....">{{$category->summary}}</textarea>
-                                    </div>
-                                </div>
     
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Is_Parent :<span class="text-danger">*</span></label>
-                                       <input id="is_parent" type="checkbox" name="is_parent" value="{{$category->is_parent}}" {{$category->is_parent== 1 ? 'checked':''}}/> Yes
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12 col-sm-12 {{$category->is_parent== 1 ? 'd-none':''}}" id="parent_cat_div"> 
-                                    <label for="parent_id">Parent Category</label>                               
-                                    <select name="parent_id" class="form-control show-tick">
-                                        <option value="">-- Parent Category --</option>
-                                        @foreach ($parent_cats as $item)
-                                            <option value="{{$item->id}} " {{$item->id === $category->parent_id ? 'selected' : ''}}>{{$item->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
+                               
                                 <div class="col-lg-12 col-md-12 col-sm-12">                                
                                     <select name="status" class="form-control show-tick">
                                         <option value="">-- status --</option>
-                                        <option value="active" {{$category->status=='active'?'selected': ''}}>Active</option>
-                                        <option value="inactive" {{$category->status=='inactive'?'selected': ''}}>inactive</option>
+                                        <option value="active" {{$brand->status=='active'?'selected': ''}}>Active</option>
+                                        <option value="inactive" {{$brand->status=='inactive'?'selected': ''}}>inactive</option>
                                     </select>
                                 </div>
                             </div>
@@ -124,20 +101,7 @@
 </script>
 <script>
     $(document).ready(function() {
-        $('#summery').summernote();
-    });
-</script>
-<script>
-    $('#is_parent').change(function(event){
-        event.preventDefault();
-        var is_checked=$('#is_parent').prop('checked');
-        if(is_checked){
-            $('#parent_cat_div').addClass('d-none');
-            $('#parent_cat_div').val('');
-        }
-        else{
-            $('#parent_cat_div').removeClass('d-none');
-        }
+        $('#description').summernote();
     });
 </script>
 @endsection

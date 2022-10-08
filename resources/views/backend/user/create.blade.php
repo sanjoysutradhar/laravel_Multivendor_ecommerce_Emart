@@ -5,12 +5,13 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-sm-12">
-                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth">
-                        <i class="fa fa-arrow-left"></i></a>Add Categories</h2>
+                    <h2><a href="javascript:void(0);" 
+                        class="btn btn-xs btn-link btn-toggle-fullwidth">
+                        <i class="fa fa-arrow-left"></i></a>Add Users</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('admin')}}"><i class="icon-home"></i></a></li>                            
-                        <li class="breadcrumb-item">Category</li>
-                        <li class="breadcrumb-item active">Add Categories</li>
+                        <li class="breadcrumb-item">Users</li>
+                        <li class="breadcrumb-item active">Add Users</li>
                     </ul>
                 </div>            
                
@@ -44,16 +45,50 @@
                         </ul>
                     </div>
                     <div class="body">
-                        <form action="{{route('category.store')}}" method="POST">
+                        <form action="{{route('user.store')}}" method="POST">
                             @csrf
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <label for="">Title<span class="text-danger">*</span></label>
-                                        <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="title">
+                                        <label for="">Full Name<span class="text-danger">*</span></label>
+                                        <input type="text" name="full_name" class="form-control" value="{{old('full_name')}}" placeholder="full name">
                                     </div>
                                 </div>
-
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="">User Name<span class="text-danger">*</span></label>
+                                        <input type="text" name="username" class="form-control" value="{{old('username')}}" placeholder="user name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Email<span class="text-danger">*</span></label>
+                                        <input type="email" name="email" class="form-control"
+                                         value="{{old('email')}}" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Password<span class="text-danger">*</span></label>
+                                        <input type="password" name="password" class="form-control"
+                                         value="{{old('password')}}" placeholder="Password">
+                                    </div>
+                                </div>
+                               
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Phone Number<span class="text-danger">*</span></label>
+                                        <input type="text" name="phone" class="form-control"
+                                         value="{{old('phone')}}" placeholder="Phone Number">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Address<span class="text-danger">*</span></label>
+                                        <input type="text" name="address" class="form-control"
+                                         value="{{old('address')}}" placeholder="Address">
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <label for="">Image</label>
@@ -69,41 +104,18 @@
                                     </div>
                                 </div>
             
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Summary</label>
-                                        <textarea id="summary" name="summary" class="form-control" placeholder="Write some text....">{{old('summary')}}</textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Is_Parent :<span class="text-danger">*</span></label>
-                                       <input id="is_parent" type="checkbox" name="is_parent" value="1" checked /> Yes
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12 col-sm-12 d-none" id="parent_cat_div"> 
-                                    <label for="parent_id">Parent Category</label>                               
-                                    <select name="parent_id" class="form-control show-tick">
-                                        <option value="">-- Parent Category --</option>
-                                        @foreach ($parent_cats as $item)
-                                            <option value="{{$item->id}}" {{old('parent_id')==$item->id ? 'selected':''}}>{{$item->title}}</option>
-                                        @endforeach
+                                
+    
+                                <div class="col-lg-12 col-md-12 col-sm-12"> 
+                                    <label for="">Role<span class="text-danger">*</span></label>                               
+                                    <select name="role" class="form-control show-tick">
+                                        <option value="">-- Role --</option>
+                                        <option value="admin" {{old('role')=='admin'?'selected': ''}}>Admin</option>
+                                        <option value="vendor" {{old('role')=='vendor'?'selected': ''}}>Vendor</option>
+                                        <option value="customer" {{old('role')=='customer'?'selected': ''}}>Customer</option>
                                     </select>
                                 </div>
-
-                                {{-- <div class="col-lg-12 col-md-12 col-sm-12"> 
-                                    <label for="">Is_Parent</label>                               
-                                    <select name="is_parent" class="form-control show-tick">
-                                        <option value="">-- Is_Parent --</option>
-                                        <option value="0" {{old('is_parent')=='0'?'selected': ''}}>No</option>
-                                        <option value="1" {{old('is_parent')=='1'?'selected': ''}}>Yse</option>
-                                    </select>
-                                </div> --}}
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">  
-                                    <label for="status">status</label>                               
+                                <div class="col-lg-12 col-md-12 col-sm-12">                                
                                     <select name="status" class="form-control show-tick">
                                         <option value="">-- status --</option>
                                         <option value="active" {{old('status')=='active'?'selected': ''}}>Active</option>
@@ -133,34 +145,7 @@
 </script>
 <script>
     $(document).ready(function() {
-        $('#summary').summernote();
+        $('#description').summernote();
     });
 </script>
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
-
-<script>
-    
-        // $("#is_parent").on('change', function() {
-        // if ($("#is_parent").is(':checked')){
-        //     $('#parent_cat_div').hide('d-done');
-        // }
-            
-        // else {
-        //     $('#parent_cat_div').show('d-done');
-        // }
-        // });
-        
-    $('#is_parent').change(function(event){
-        event.preventDefault();
-        var is_checked=$('#is_parent').prop('checked');
-        if(is_checked){
-            $('#parent_cat_div').addClass('d-none');
-            $('#parent_cat_div').val('');
-        }
-        else{
-            $('#parent_cat_div').removeClass('d-none');
-        }
-    });
-</script>
- 
 @endsection

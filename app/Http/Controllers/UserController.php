@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Banner;
-use Illuminate\Support\Str;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Symfony\Contracts\Service\Attribute\Required;
+use Illuminate\Support\Facades\Hash;
 
-class BannerController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +16,16 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners=Banner::orderBy('id','DESC')->get();
-        return view('backend.banners.index',compact('banners'));
+        $users=User::orderBy('id','DESC')->get();
+        return view('backend.user.index',compact('users'));
     }
-    public function banner_status(Request $request){
+
+    public function user_status(Request $request){
         if($request->mode=='true'){
-            DB::table('banners')->where('id',$request->id)->update(['status'=>'active']);
+            DB::table('users')->where('id',$request->id)->update(['status'=>'active']);
         }
         else{
-            DB::table('banners')->where('id',$request->id)->update(['status'=>'inactive']);
+            DB::table('users')->where('id',$request->id)->update(['status'=>'inactive']);
         }
         return response()->json(['msg'=>'Successfully updated status','status'=>true]);
     }
@@ -37,7 +37,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('backend.banners.create');
+        return view('backend.user.create');
     }
 
     /**
@@ -49,27 +49,29 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'title'=>'string|required',
-            'photo'=>'required',
-            'description'=>'string|nullable',
-            'condition'=>'nullable|in:banner,promo',
-            'status'=>'nullable|in:active,inactive'
+            'full_name'=>'string|required',
+            'username'=>'string|nullable',
+            'email'=>'email|required|unique:users,email',
+            'password'=>'min:4|required',
+            'phone'=>'string|nullable',
+            'photo'=>'string|required',
+            'address'=>'string|nullable',
+            
+            'role'=>'required|in:admin,vendor,customer',
+            'status'=>'required|in:active,inactive'
         ]);
+        
         $data=$request->all();
-        $slug=Str::slug($request->input('title'));
-        $slug_count=Banner::where('slug',$slug)->count();
-        if($slug_count>0){
-            $slug =time().'-'.$slug;
-        }
-        $data['slug']=$slug;
-        // dd($data);
-        $status=Banner::create($data);
+        $data['password']=Hash::make($request->password);
+    
+        $status=User::create($data);
         if($status){
-            return redirect()->route('banner.index')->with('success','Successfully created banner');
+            return redirect()->route('user.index')->with('success','Successfully created user');
         }
         else{
             return back()->with('errors','Something went wrong');
         }
+
     }
 
     /**
@@ -91,11 +93,13 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $banner=Banner::find($id);
-        if($banner){
-            return view('backend.banners.edit',compact('banner'));
-        }else{
-            return back()->with('errors','Data not found');
+        $users=User::find($id);
+        
+        if($users){
+            return view('backend.user.edit',compact('users'));
+        }
+        else{
+            return back()->with('errors','Something went wrong');
         }
     }
 
@@ -108,27 +112,27 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $banner=Banner::find($id);
-        if($banner){
+        $users=User::find($id);
+        if($users){
             $this->validate($request,[
-                'title'=>'string|required',
-                'photo'=>'required',
-                'description'=>'string|nullable',
-                'condition'=>'nullable|in:banner,promo',
-                'status'=>'nullable|in:active,inactive'
+                'full_name'=>'string|required',
+                'username'=>'string|nullable',
+                'email'=>'email|required|exists:users,email',
+                'phone'=>'string|nullable',
+                'photo'=>'string|required',
+                'address'=>'string|nullable',
+                'role'=>'required|in:admin,vendor,customer',
+                'status'=>'required|in:active,inactive'
             ]);
-        
+
             $data=$request->all();
-            $status=$banner->fill($data)->save();
+            $status=$users->fill($data)->save();
             if($status){
-                return redirect()->route('banner.index')->with('success','Successfully Updated banner');
+                return redirect()->route('user.index')->with('success','Successfully Updated user');
             }
             else{
                 return back()->with('errors','Something went wrong');
             }
-        }
-        else{
-            return back()->with('errors','Data not found');
         }
     }
 
@@ -140,11 +144,13 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        $banner=Banner::find($id);
-        if($banner){
-            $status=$banner->delete();
+        $users=User::find($id);
+       
+        if($users){
+            $status=$users->delete();
             if($status){
-                return redirect()->route('banner.index')->with('success','Banner successfully deleted');
+                
+                return redirect()->route('user.index')->with('success','user successfully deleted');
             }
             else{
                 return back()->with('errors','Something wrong');
@@ -152,6 +158,5 @@ class BannerController extends Controller
         }else{
             return back()->with('errors','Data not found');
         }
-
     }
 }
