@@ -29,6 +29,9 @@ Route::get('/',[IndexController::class,'home'])->name('home');
 
 // product category
 Route::get('/product-category/{slug}/',[IndexController::class,'ProductCategory'])->name('product.category');
+//product detail
+Route::get('/product-detail/{slug}',[IndexController::class,'productDetail'])->name('product.detail');
+
 //Frontend end section
 
 

@@ -96,7 +96,7 @@
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <label for="">Discount<span class="text-danger">*</span></label>
-                                        <input type="number" min="0" max="100" name="discount" class="form-control" value="{{$product->discount}}" placeholder="Discount">
+                                        <input type="number" step="any" min="0" max="100" name="discount" class="form-control" value="{{$product->discount}}" placeholder="Discount">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">

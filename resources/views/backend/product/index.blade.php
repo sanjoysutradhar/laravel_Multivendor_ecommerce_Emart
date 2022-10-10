@@ -58,7 +58,11 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$item->title}}</td>
                                         {{-- <td>{{$item->description}}</td> --}}
-                                        <td><img src="{{$item->photo}}" alt="product image" height="100px" width="75px"></td>
+                                        @php
+                                            $photos=explode(',',$item->photo)
+                                        @endphp
+                                        
+                                        <td><img src="{{$photos[0]}}" alt="product image" height="100px" width="75px"></td>
                                         
                                         <td>${{number_format($item->price,2)}}</td>
                                         <td>{{number_format($item->discount,0)}}%</td>
