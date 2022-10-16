@@ -24,7 +24,17 @@ use App\Http\Controllers\UserController;
 
 //Frontend section
 
-Route::get('/',[IndexController::class,'home'])->name('home');
+// authentication
+Route::get('/user/auth',[IndexController::class,'UserAuth'])->name('user.auth');
+
+Route::post('/user/login',[IndexController::class,'loginSubmit'])->name('login.submit');
+//register
+Route::post('/user/register',[IndexController::class,'registerSubmit'])->name('register.submit');
+Route::get('/user/logout',[IndexController::class,'LogoutSubmit'])->name('logout.submit');
+//Route::post('/user/logout',[IndexController::class,'userLogout'])->name('user.logout');
+
+
+Route::get('/',[IndexController::class,'home'])->name('user.home');
 
 
 // product category
@@ -41,29 +51,34 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Admin Dashboard
-Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
-Route::get('/',[AdminController::class,'admin'])->name('admin');
- // Banner section
-Route::resource('/banner',BannerController::class);
-Route::post('/banner_status',[BannerController::class,'banner_status'])->name('banner.status');
+Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
+    Route::get('/',[AdminController::class,'admin'])->name('admin');
+    // Banner section
+    Route::resource('/banner',BannerController::class);
+    Route::post('/banner_status',[BannerController::class,'banner_status'])->name('banner.status');
 
-// Category section
-Route::resource('/category',CategoryController::class);
-Route::post('/category_status',[CategoryController::class,'category_status'])->name('category.status');
+    // Category section
+    Route::resource('/category',CategoryController::class);
+    Route::post('/category_status',[CategoryController::class,'category_status'])->name('category.status');
 
-Route::post('/category/child/{id}',[CategoryController::class,'getChildByParentID'])->name('category.child');
+    Route::post('/category/child/{id}',[CategoryController::class,'getChildByParentID'])->name('category.child');
 
-//brand section
-Route::resource('/brand',BrandController::class);
-Route::post('/brand_status',[BrandController::class,'brand_status'])->name('brand.status');
+    //brand section
+    Route::resource('/brand',BrandController::class);
+    Route::post('/brand_status',[BrandController::class,'brand_status'])->name('brand.status');
 
-//Product section
-Route::resource('/product',ProductController::class);
-Route::post('/product_status',[ProductController::class,'product_status'])->name('product.status');
+    //Product section
+    Route::resource('/product',ProductController::class);
+    Route::post('/product_status',[ProductController::class,'product_status'])->name('product.status');
 
-//user section
-Route::resource('/user',UserController::class);
-Route::post('/user_status',[UserController::class,'user_status'])->name('user.status');
+    //user section
+    Route::resource('/user',UserController::class);
+    Route::post('/user_status',[UserController::class,'user_status'])->name('user.status');
 
 });
 
+//seller
+Route::group(['prefix'=>'seller','middleware'=>['auth','seller']],function(){
+    Route::get('/',[AdminController::class,'admin'])->name('seller');
+
+});

@@ -5,9 +5,9 @@
         </div>
 
         <div class="navbar-brand">
-            <a href="index.html"><img src="{{asset('backend/assets/images/logo.svg')}}" alt="Lucid Logo" class="img-responsive logo"></a>                
+            <a href="index.html"><img src="{{asset('backend/assets/images/logo.svg')}}" alt="Lucid Logo" class="img-responsive logo"></a>
         </div>
-        
+
         <div class="navbar-right">
             <form id="navbar-search" class="navbar-form search-form">
                 <input value="" class="form-control" placeholder="Search here..." type="text">
@@ -47,7 +47,7 @@
                                         </div>
                                     </div>
                                 </a>
-                            </li>                               
+                            </li>
                             <li>
                                 <a href="javascript:void(0);">
                                     <div class="media">
@@ -100,7 +100,7 @@
                             <li><a href="javascript:void(0);"><i class="icon-bell"></i> <span>Notifications</span></a></li>
                             <li class="menu-heading">BILLING</li>
                             <li><a href="javascript:void(0);"><i class="icon-credit-card"></i> <span>Payments</span></a></li>
-                            <li><a href="javascript:void(0);"><i class="icon-printer"></i> <span>Invoices</span></a></li>                                
+                            <li><a href="javascript:void(0);"><i class="icon-printer"></i> <span>Invoices</span></a></li>
                             <li><a href="javascript:void(0);"><i class="icon-refresh"></i> <span>Renewals</span></a></li>
                         </ul>
                     </li>

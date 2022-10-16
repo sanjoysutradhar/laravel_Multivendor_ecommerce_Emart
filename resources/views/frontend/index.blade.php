@@ -141,7 +141,7 @@
     <!-- Quick View Modal Area -->
 
     @php
-        $new_products=\App\Models\Product::where(['status'=>'active','condition'=>'new'])->orderBy('id','DESC')->limit(10)->get();
+        $new_products = \App\Models\Product::where(['status'=>'active','condition'=>'new'])->orderBy('id','DESC')->limit(10)->get();
     @endphp
 
     @if(count($new_products)>0)
@@ -161,27 +161,21 @@
                     <div class="new_arrivals_slides owl-carousel">
                         <!-- Single Product -->
                         @foreach ($new_products as $item)
+
+
                         <div class="single-product-area">
                             <div class="product_image">
                                 <!-- Product Image -->
-                                @php
-                                    $photos=explode(',',$item->photo)
-                                @endphp
+                                <?php $photos=explode(',',$item->photo); ?>
+
+                                 @if(isset($photos[0]))   
                                 <img class="normal_img" src="{{$photos[0]}}" alt="{{$item->title}}">
-                                {{-- <img class="hover_img" src="{{$photos[1]}}" alt=""> --}}
-                                <img class="hover_img" src="frontend/img/product-img/new-1.png" alt="">
-                                
-                                {{-- @foreach ($photos as $key=>$photo)
-
-                                @if ($key==0)
-                                    <img class="normal_img" src="{{$photo[$key]}}" alt="{{$item->title}}">
-                                @elseif($key==1)
-                                    <img class="hover_img" src="{{$photo[$key]}}" alt="{{$item->title}}">
-                                @else
-
                                 @endif
-                                @endforeach --}}
-
+                                @if(isset($photos[1]))   
+                                <img class="hover_img" src="{{$photos[1]}}" alt="">
+                                @endif
+                                
+                                    
                                 <!-- Product Badge -->
                                 <div class="product_badge">
                                     <span>New</span>
@@ -220,6 +214,7 @@
                                             ${{number_format($item->price,2)}}
                                         </del>
                                     </small>
+                                </h6>
                             </div>
                         </div>
                         @endforeach

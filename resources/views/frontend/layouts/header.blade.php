@@ -70,12 +70,12 @@
                         <!-- Nav -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="#">Home</a>
-                                    <ul class="dropdown">
+                                <li><a href="{{route('user.home')}}">Home</a>
+                                    {{-- <ul class="dropdown">
                                         <li><a href="index-1.html">Home - 1</a></li>
                                         <li><a href="index-2.html">Home - 2</a></li>
                                         <li><a href="index-3.html">Home - 3</a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li><a href="#">Shop</a>
                                     <ul class="dropdown">
@@ -103,6 +103,7 @@
                                                 </li>
                                             </ul>
                                         </li>
+                                        {{-- cart --}}
                                         <li><a href="product-details.html">Single Product</a></li>
                                         <li><a href="cart.html">Cart</a></li>
                                         <li><a href="#">Checkout</a>
@@ -115,6 +116,7 @@
                                                 <li><a href="checkout-complate.html">Complate</a></li>
                                             </ul>
                                         </li>
+                                        {{-- Account --}}
                                         <li><a href="#">Account Page</a>
                                             <ul class="dropdown">
                                                 <li><a href="my-account.html">- Dashboard</a></li>
@@ -124,7 +126,9 @@
                                                 <li><a href="account-details.html">- Account Details</a></li>
                                             </ul>
                                         </li>
+
                                         <li><a href="wishlist.html">Wishlist</a></li>
+
                                         <li><a href="compare.html">Compare</a></li>
                                     </ul>
                                 </li>
@@ -277,11 +281,26 @@
                                 <img src="frontend/img/bg-img/user.jpg" alt="">
                             </div>
                             <ul class="user-meta-dropdown">
-                                <li class="user-title"><span>Hello,</span> Lim Sarah</li>
+                                @auth
+                                <li class="user-title"><span>Hello,</span>{{auth()->user()->full_name}}</li>
                                 <li><a href="my-account.html">My Account</a></li>
                                 <li><a href="order-list.html">Orders List</a></li>
                                 <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="login.html"><i class="icofont-logout"></i> Logout</a></li>
+
+                                <li>
+                                    <a href="{{route('logout.submit')}}"><i class="icofont-logout"></i> Logout</a>
+{{--                                    <form method="post" action="{{route('user.logout')}}">--}}
+{{--                                        @csrf--}}
+{{--                                        <button class="btn"><i class="icofont-logout"></i> Logout</button>--}}
+{{--                                        --}}
+{{--                                    </form>--}}
+
+
+                                </li>
+                                @else
+                                <li><a href="{{route('user.auth')}}">login & register</a></li>
+                                @endauth
+
                             </ul>
                         </div>
                     </div>

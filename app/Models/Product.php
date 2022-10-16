@@ -30,4 +30,7 @@ class Product extends Model
     // public function brands(){
     //     return $this->belongsTo('App\Models\Brand');
     // }
+    public function related_product(){
+        return $this->hasMany('App\Models\Product','cat_id','cat_id')->where('status','active')->limit(10);
+    }
 }
