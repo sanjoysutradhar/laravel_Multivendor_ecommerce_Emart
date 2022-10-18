@@ -103,211 +103,75 @@
                                 <a href="shop-list-left-sidebar.html" data-toggle="tooltip" data-placement="top" title="List View"><i class="icofont-listine-dots"></i></a>
                             </div>
                         </div>
-                        <select class="small right">
-                            <option selected>Short by Popularity</option>
-                            <option value="1">Short by Newest</option>
-                            <option value="2">Short by Sales</option>
-                            <option value="3">Short by Ratings</option>
+                        <select id="sortBy" class="small right">
+                            <option selected>default sort</option>
+                            <option value="priceAsc">Price -lower to higher</option>
+                            <option value="priceDesc">Price - higher to lower</option>
+                            <option value="titleAsc">Alphabetical Ascending</option>
+                            <option value="titleDesc">Alphabetical descending</option>
+                            <option value="discountAsc">Discount -lower to higher</option>
+                            <option value="discountDesc">Discount - higher to lower</option>
                         </select>
                     </div>
 
                     <div class="shop_grid_product_area">
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center" id="product-data">
 
-                            @if (count($categories->products)>0)
-                                <!-- Single Product -->
-                                @foreach ($categories->products as $item)
-                               
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                        <div class="single-product-area mb-30">
-                                            <div class="product_image">
-                                                @php
-                                                    $photo=explode(',',$item->photo);
-                                                @endphp
-                                                <!-- Product Image -->
-                                                <img class="normal_img" src="{{$photo[0]}}" alt="">
-                                                <img class="hover_img" src="{{$photo[0]}}" alt="">
+                        @include('frontend.layouts._single-product')
 
-                                                <!-- Product Badge -->
-                                                <div class="product_badge">
-                                                    <span>{{$item->condition}}</span>
-                                                </div>
-
-                                                <!-- Wishlist -->
-                                                <div class="product_wishlist">
-                                                    <a href="wishlist.html"><i class="icofont-heart"></i></a>
-                                                </div>
-
-                                                <!-- Compare -->
-                                                <div class="product_compare">
-                                                    <a href="compare.html"><i class="icofont-exchange"></i></a>
-                                                </div>
-                                            </div>
-
-                                            <!-- Product Description -->
-                                            <div class="product_description">
-                                                <!-- Add to cart -->
-                                                <div class="product_add_to_cart">
-                                                    <a href="#"><i class="icofont-shopping-cart"></i> Add to Cart</a>
-                                                </div>
-
-                                                <!-- Quick View -->
-                                                <div class="product_quick_view">
-                                                    <a href="#" data-toggle="modal" data-target="#quickview"><i class="icofont-eye-alt"></i> Quick View</a>
-                                                </div>
-
-                                                <p class="brand_name">{{\App\Models\Brand::where('id',$item->brand_id)->value('title')}}</p>
-                                                <a href="{{route('product.detail',$item->slug)}}">{{ucfirst($item->title)}}</a>
-                                                <h6 class="product-price">
-                                                    ${{number_format($item->offer_price,2)}}
-                                                    <small>
-                                                        <del class="text-danger">
-                                                            ${{number_format($item->price,2)}}
-                                                        </del>
-                                                    </small>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </div>
-     
-                                @endforeach
-                            @else
-                                <p> No Product</p>
-                            @endif
-                            
-
-                            
                         </div>
                     </div>
 
                     <!-- Shop Pagination Area -->
-                    <div class="shop_pagination_area mt-30">
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination pagination-sm justify-content-center">
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                <li class="page-item"><a class="page-link" href="#">8</a></li>
-                                <li class="page-item"><a class="page-link" href="#">9</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                </li>
-                            </ul>
-                        </nav>
+                    <div id="ajax-load" class="ajax-load text-center" style="display: none">
+                        <img src="{{asset('frontend/img/loader.gif')}}" alt="loader" style="width: 6%">
                     </div>
 
                 </div>
             </div>
         </div>
     </section>
+@endsection
 
-        <div class="container">
-            <div class="row">
-                <!-- Single Footer Area -->
-                <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3">
-                    <div class="single_footer_area mb-100">
-                        <div class="footer_heading mb-4">
-                            <h6>Contact Us</h6>
-                        </div>
-                        <ul class="footer_content">
-                            <li><span>Address:</span> Lords, London, UK - 1259</li>
-                            <li><span>Phone:</span> 002 63695 24624</li>
-                            <li><span>FAX:</span> 002 78965 369552</li>
-                            <li><span>Email:</span> support@example.com</li>
-                        </ul>
-                        <div class="footer_social_area mt-15">
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
+@section('scripts')
+{{--    <script src="{{asset('frontend/assets/js/jquery-3.6.1.js')}}"></script>--}}
+    <script>
+        $('#sortBy').change(function(){
+            var sort= $('#sortBy').val();
+           window.location="{{url(''.$route.'')}}/{{$categories->slug}}?sort="+sort;
+        });
+    </script>
 
-                <!-- Single Footer Area -->
-                <div class="col-12 col-sm-6 col-md col-lg-4 col-xl-2">
-                    <div class="single_footer_area mb-100">
-                        <div class="footer_heading mb-4">
-                            <h6>Information</h6>
-                        </div>
-                        <ul class="footer_widget_menu">
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Your Account</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Free Shipping Policy</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Your Cart</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Return Policy</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Free Coupon</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Delivary Info</a></li>
-                        </ul>
-                    </div>
-                </div>
+    <script>
+        function loadmoreData(page){
+            $.ajax({
+                url:'?page='+page,
+                type:'get',
+                dataType: 'json',
+                beforeSend:function(){
+                    $('.ajax-load').show();
 
-                <!-- Single Footer Area -->
-                <div class="col-12 col-sm-6 col-md col-lg-4 col-xl-2">
-                    <div class="single_footer_area mb-100">
-                        <div class="footer_heading mb-4">
-                            <h6>Account</h6>
-                        </div>
-                        <ul class="footer_widget_menu">
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Product Support</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Terms &amp; Conditions</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Help</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Payment Method</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Affiliate Program</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Single Footer Area -->
-                <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-2">
-                    <div class="single_footer_area mb-100">
-                        <div class="footer_heading mb-4">
-                            <h6>Support</h6>
-                        </div>
-                        <ul class="footer_widget_menu">
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Payment Method</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Help</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Product Support</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Terms &amp; Conditions</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Privacy Policy</a></li>
-                            <li><a href="#"><i class="icofont-rounded-right"></i> Affiliate Program</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Single Footer Area -->
-                <div class="col-12 col-md-7 col-lg-8 col-xl-3">
-                    <div class="single_footer_area mb-50">
-                        <div class="footer_heading mb-4">
-                            <h6>Join our mailing list</h6>
-                        </div>
-                        <div class="subscribtion_form">
-                            <form action="#" method="post">
-                                <input type="email" name="mail" class="form-control mail" placeholder="Your E-mail Addrees">
-                                <button type="submit" class="submit"><i class="icofont-long-arrow-right"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="single_footer_area mb-100">
-                        <div class="footer_heading mb-4">
-                            <h6>Download our Mobile Apps</h6>
-                        </div>
-                        <div class="apps_download">
-                            <a href="#"><img src="img/core-img/play-store.png" alt="Play Store"></a>
-                            <a href="#"><img src="img/core-img/app-store.png" alt="Apple Store"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+                },
+            })
+            .done(function(data){
+                if(data.html==''){
+                    $('.ajax-load').html("No more product available");
+                    return;
+                }
+                $('.ajax-load').hide();
+                $('#product-data').append(data.html);
+            })
+            .fail(function(){
+                alert('Something went wrong! please try again');
+            });
+            var page=1;
+            $(window).scroll(function () {
+                if($(window).scrollTop() + $(window).height()+120>=$(document).height()){
+                    page ++;
+                    loadmoreData(page)
+                }
+            })
+        }
+    </script>
 
 @endsection

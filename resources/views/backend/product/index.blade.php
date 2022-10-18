@@ -11,19 +11,19 @@
                     <a href="{{route('product.create')}}" class="btn btn-sm btn-outline-secondary">
                         <i class="icon-plus"></i>Product create</a>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{route('admin')}}"><i class="icon-home"></i></a></li>                      
+                        <li class="breadcrumb-item"><a href="{{route('admin')}}"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item active">Product</li>
                     </ul>
                 </div>
                 <div class="float-right">
-                    <p class="float-right">Total Products: {{\App\Models\Product::count()}}</p>    
-                </div>  
-                          
+                    <p class="float-right">Total Products: {{\App\Models\Product::count()}}</p>
+                </div>
+
             </div>
         </div>
-        
+
         <div class="row clearfix">
-            <div class="col-lg-12">
+            <div class="col-md-12">
                 @include('backend.layouts.notification')
             </div>
             <div class="col-lg-12">
@@ -51,19 +51,19 @@
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
-                                </thead>                            
-                                <tbody>
+                                </thead>
+                                <tbody >
                                     @foreach ($products as $item)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->title}}</td>
+                                        <td><p style="width: 150px; overflow: scroll">{{$item->title}}</p></td>
                                         {{-- <td>{{$item->description}}</td> --}}
                                         @php
                                             $photos=explode(',',$item->photo)
                                         @endphp
-                                        
+
                                         <td><img src="{{$photos[0]}}" alt="product image" height="100px" width="75px"></td>
-                                        
+
                                         <td>${{number_format($item->price,2)}}</td>
                                         <td>{{number_format($item->discount,0)}}%</td>
                                         <td>
@@ -87,27 +87,27 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <input type="checkbox" name="toogle" value="{{$item->id}}" 
-                                            data-toggle="switchbutton" {{$item->status=='active' ? 'checked' : '' }} 
+                                            <input type="checkbox" name="toogle" value="{{$item->id}}"
+                                            data-toggle="switchbutton" {{$item->status=='active' ? 'checked' : '' }}
                                             data-onlabel="active" data-offlabel="inactive"
                                              data-size="sm" data-onstyle="success" data-offstyle="danger">
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#productID{{$item->id}}" title="view" 
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#productID{{$item->id}}" title="view"
                                                 class="float-left btn btn-sm btn-outline-secondary" data-placement="bottom"><i class="fas fa-eye"></i></a>
-                                                <a href="{{route('product.edit',$item->id)}}" data-toggle="tooltip" title="edit" 
+                                                <a href="{{route('product.edit',$item->id)}}" data-toggle="tooltip" title="edit"
                                                     class="float-left btn btn-sm btn-outline-warning" data-placement="bottom"><i class="fas fa-edit"></i></a>
                                                 <form class="float-left ml-1" action="{{route('product.destroy',$item->id)}}" method="POST">
                                                 @csrf
                                                 @method('delete')
-                                                <button data-toggle="tooltip" title="delete" data-id="{{$item->id}}" 
+                                                <button data-toggle="tooltip" title="delete" data-id="{{$item->id}}"
                                                     class="dltBtn btn btn-sm btn-outline-danger" data-placement="bottom">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                                 {{-- <a href="" data-toggle="tooltip" title="delete" data-id="{{$item->id}}" class="dltBtn btn btn-sm btn-outline-danger" data-placement="bottom"><i class="fas fa-trash-alt"></i></a> --}}
                                             </form>
-                                            
-                                            
+
+
                                         </td>
                                         {{-- modal --}}
                                         <div class="modal fade" id="productID{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -127,7 +127,7 @@
                                                     <p>{!! html_entity_decode($product->summary)!!}</p>
                                                     <strong>Description:</strong>
                                                     <p>{!! html_entity_decode($product->description)!!}</p>
-                                          
+
                                                     <div class="row">
                                                         <div class="col-md-4">
                                                             <strong>Stock:</strong>
@@ -136,14 +136,14 @@
                                                         <div class="col-md-4">
                                                             <strong>Price:</strong>
                                                             <p>${{ number_format($product->price)}}</p>
-                                                    
+
                                                         </div>
                                                         <div class="col-md-4">
                                                             <strong>Offer Price:</strong>
                                                             <p>${{ number_format($product->offer_price)}}</p>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <strong>Discount:</strong>
                                                     <p>{{$product->discount}}%</p>
 
@@ -151,7 +151,7 @@
                                                         <div class="col-md-6">
                                                             <strong>Category:</strong>
                                                             <p>{{\App\Models\Category::where('id',$product->cat_id)->value('title')}}</p>
-                                                    
+
                                                         </div>
                                                         <div class="col-md-6">
                                                             <strong>child category</strong>
@@ -168,7 +168,7 @@
                                                             <p class="badge badge-success">{{$product->size}}</p>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <strong>Status:</strong>
@@ -179,7 +179,7 @@
                                                             <p class="badge badge-success">{{$product->condition}}</p>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div class="modal-footer">
                                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -190,12 +190,12 @@
                                           </div>
                                     </tr>
                                     @endforeach
-                                    
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>                   
+                </div>
             </div>
         </div>
 
@@ -253,7 +253,7 @@
                 }
                 else{
                     alert('please try again');
-                } 
+                }
             }
         })
     });

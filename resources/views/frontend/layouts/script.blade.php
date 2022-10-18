@@ -1,3 +1,5 @@
+
+
     <script src="{{asset('frontend/assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/popper.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script>
@@ -16,8 +18,11 @@
     <script src="{{asset('frontend/assets/js/wow.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/active.js')}}"></script>
 
+
     <script>
         setTimeout(function(){
             $('#alert').slideUp()
         }, 4000);
     </script>
+
+@yield('scripts')
