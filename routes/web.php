@@ -82,3 +82,10 @@ Route::group(['prefix'=>'seller','middleware'=>['auth','seller']],function(){
     Route::get('/',[AdminController::class,'admin'])->name('seller');
 
 });
+//  User dhasboard
+Route::group(['prefix'=>'user'],function (){
+    Route::get('/dashboard',[IndexController::class,'userDashboard'])->name('user.dashboard');
+    Route::get('/order',[IndexController::class,'userOrder'])->name('user.order');
+    Route::get('/address',[IndexController::class,'userAddress'])->name('user.address');
+    Route::get('/account-details',[IndexController::class,'userAccount'])->name('user.account');
+});

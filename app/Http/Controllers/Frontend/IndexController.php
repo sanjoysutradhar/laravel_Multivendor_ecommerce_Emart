@@ -162,5 +162,26 @@ class IndexController extends Controller
 //        return redirect()->route('user.home')->with('success','you have been logged out');
 //
 //    }
+
+    public function userDashboard(){
+            $user=Auth::user();
+
+            return view('frontend.user.dashboard',compact('user'));
+    }
+    public function userOrder(){
+        $user=Auth::user();
+
+        return view('frontend.user.order',compact('user'));
+    }
+    public function userAddress(){
+        $user=Auth::user();
+
+        return view('frontend.user.address',compact('user'));
+    }
+    public function userAccount(){
+        $user=Auth::user();
+
+        return view('frontend.user.account',compact('user'));
+    }
 }
 

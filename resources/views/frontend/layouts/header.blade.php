@@ -283,8 +283,8 @@
                             <ul class="user-meta-dropdown">
                                 @auth
                                 <li class="user-title"><span>Hello,</span>{{auth()->user()->full_name}}</li>
-                                <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="order-list.html">Orders List</a></li>
+                                <li><a href="{{route('user.dashboard')}}">My Account</a></li>
+                                <li><a href="{{route('user.order')}}">Orders List</a></li>
                                 <li><a href="wishlist.html">Wishlist</a></li>
 
                                 <li>
