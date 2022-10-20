@@ -33,20 +33,113 @@
                             <div class="col-12 col-lg-6 mb-5 mb-lg-0">
                                 <h6 class="mb-3">Billing Address</h6>
                                 <address>
-                                    MD NAZRUL ISLAM <br>
-                                    Madhabdi, Narsingdi <br>
-                                    Madhabdi <br>
-                                    Narsingdi <br>
-                                    1600
+                                    {{$user->full_name}}<br>
+                                    {{$user->address}} <br>
+                                    {{$user->state}},{{$user->city}}<br>
+                                    {{$user->country}}<br>
+                                    {{$user->postcode}}
                                 </address>
-                                <a href="#" class="btn btn-primary btn-sm">Edit Address</a>
+                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editAddress">Edit Address</a>
+                                <!-- Address Modal -->
+                                <div class="modal fade" id="editAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false" style="background:rgba(0,0,0,0.5)">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit address</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <form action="{{route('billing.address',$user->id)}}" method="POST">
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="">Address</label>
+                                                        <textarea name="address" id="" class="form-control" >{{$user->address}}</textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Country</label>
+                                                        <input type="text" name="country" id="" class="form-control" placeholder="eg. Napel" value="{{$user->country}}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Postcode</label>
+                                                        <input type="text" name="postcode" id="" class="form-control"  placeholder="eg. 44688" value="{{$user->postcode}}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">State</label>
+                                                        <input type="text" name="state" id="" class="form-control"  placeholder="eg. state1" value="{{$user->state}}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">City</label>
+                                                        <input type="text" name="city" id="" class="form-control" placeholder="eg. Dhaka" value="{{$user->city}}">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--modal--}}
                             </div>
                             <div class="col-12 col-lg-6">
                                 <h6 class="mb-3">Shipping Address</h6>
+
                                 <address>
-                                    You have not set up this type of address yet.
+                                    {{$user->full_name}}<br>
+                                    {{$user->shiping_address}} <br>
+                                    {{$user->shiping_state}},{{$user->shiping_city}}<br>
+                                    {{$user->shiping_country}}<br>
+                                    {{$user->shiping_postcode}}
                                 </address>
-                                <a href="#" class="btn btn-primary btn-sm">Edit Address</a>
+                                <a href="#shipingAddress" class="btn btn-primary btn-sm" data-toggle="modal">Edit Shipping Address</a>
+                                <!-- Shiping Address Modal -->
+                                <div class="modal fade " id="shipingAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false" style="background:rgba(0,0,0,0.5)">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit Shipping address</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <form action="{{route('shipping.address',$user->id)}}" method="POST">
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="">Shipping Address</label>
+                                                        <textarea name="shiping_address" id="" class="form-control"  >{{$user->shiping_address}}</textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Shipping Country</label>
+                                                        <input type="text" name="shiping_country" id="" class="form-control" placeholder="eg. Napel" value="{{$user->shiping_country}}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Shipping Postcode</label>
+                                                        <input type="text" name="shiping_postcode" id="" class="form-control"  placeholder="eg. 44688" value="{{$user->shiping_postcode}}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Shipping State</label>
+                                                        <input type="text" name="shiping_state" id="" class="form-control"  placeholder="eg. state1" value="{{$user->shiping_state}}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Shipping City</label>
+                                                        <input type="text" name="shiping_city" id="" class="form-control" placeholder="eg. Dhaka" value="{{$user->shiping_city}}">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--modal--}}
                             </div>
                         </div>
                     </div>
@@ -55,4 +148,15 @@
         </div>
     </section>
     <!-- My Account Area -->
+@endsection
+
+@section('styles')
+    <style>
+        .footer_area{
+            z-index:-1;
+        }
+        .header_area{
+            z-index:-1;
+        }
+    </style>
 @endsection

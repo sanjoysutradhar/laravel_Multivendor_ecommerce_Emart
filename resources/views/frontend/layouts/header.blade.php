@@ -1,3 +1,4 @@
+
 <header class="header_area">
     <!-- Top Header Area -->
     <div class="top-header-area">
@@ -47,7 +48,7 @@
     </div>
 
     <!-- Main Menu -->
-    <div class="bigshop-main-menu">
+    <div class="bigshop-main-menu ">
         <div class="container">
             <div class="classy-nav-container breakpoint-off">
                 <nav class="classy-navbar" id="bigshopNav">
@@ -278,11 +279,24 @@
                         <!-- Account -->
                         <div class="account-area">
                             <div class="user-thumbnail">
-                                <img src="frontend/img/bg-img/user.jpg" alt="">
+{{--<!--                                --><?php--}}
+{{--//                                if(auth()){--}}
+{{--//                                    echo "<pre/>";--}}
+{{--//                                    print_r(auth()->user()->full_name);--}}
+{{--//                                }--}}
+{{--//                                ?>--}}
+                                @if(auth()->user()->photo??'')
+                                    <img src="{{auth()->user()->photo}}" alt="{{auth()->user()->full_name}}">
+                                @else
+                                    <img src="{{Helper::userDefaultImage()}}" alt="DefaultImage">
+                                @endif
                             </div>
                             <ul class="user-meta-dropdown">
                                 @auth
-                                <li class="user-title"><span>Hello,</span>{{auth()->user()->full_name}}</li>
+                                    @php
+                                        $first_name=explode(' ',auth()->user()->full_name);
+                                    @endphp
+                                <li class="user-title"><span>Hello, </span> {{Str::upper($first_name[0])}} !!</li>
                                 <li><a href="{{route('user.dashboard')}}">My Account</a></li>
                                 <li><a href="{{route('user.order')}}">Orders List</a></li>
                                 <li><a href="wishlist.html">Wishlist</a></li>
@@ -309,3 +323,6 @@
         </div>
     </div>
 </header>
+
+
+

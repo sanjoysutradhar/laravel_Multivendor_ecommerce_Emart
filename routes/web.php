@@ -25,7 +25,7 @@ use App\Http\Controllers\UserController;
 //Frontend section
 
 // authentication
-Route::get('/user/auth',[IndexController::class,'UserAuth'])->name('user.auth');
+Route::get('/user/auth',[IndexController::class,'UserAuth'])->name('user.auth')->middleware('guest');
 
 Route::post('/user/login',[IndexController::class,'loginSubmit'])->name('login.submit');
 //register
@@ -39,6 +39,10 @@ Route::get('/',[IndexController::class,'home'])->name('user.home');
 
 // product category
 Route::get('/product-category/{slug}/',[IndexController::class,'ProductCategory'])->name('product.category');
+
+//Product load of category
+Route::get('/load-product/{slug}',[IndexController::class,'loadProduct'])->name('load.product');
+
 //product detail
 Route::get('/product-detail/{slug}',[IndexController::class,'productDetail'])->name('product.detail');
 
@@ -83,9 +87,18 @@ Route::group(['prefix'=>'seller','middleware'=>['auth','seller']],function(){
 
 });
 //  User dhasboard
-Route::group(['prefix'=>'user'],function (){
+Route::middleware('auth')->group(function (){
+
+Route::group(['prefix'=>'user','middleware'=>['auth','user']],function (){
     Route::get('/dashboard',[IndexController::class,'userDashboard'])->name('user.dashboard');
     Route::get('/order',[IndexController::class,'userOrder'])->name('user.order');
     Route::get('/address',[IndexController::class,'userAddress'])->name('user.address');
     Route::get('/account-details',[IndexController::class,'userAccount'])->name('user.account');
+    //billing Address
+    Route::post('/billing/address/{id}',[IndexController::class,'billingAddress'])->name('billing.address');
+    //shipping address
+    Route::post('/shipping/address/{id}',[IndexController::class,'shippingAddress'])->name('shipping.address');
+    Route::post('/update/account/{id}',[IndexController::class,'updateAccount'])->name('update.account');
+});
+
 });

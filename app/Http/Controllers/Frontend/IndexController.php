@@ -60,18 +60,31 @@ class IndexController extends Controller
                     ->orderBy('title','DESC')->paginate(12);
             }
             else{
-                $products=Product::where(['status'=>'active','cat_id'=>$categories->id])->paginate(12);
+                $products=Product::where(['status'=>'active','cat_id'=>$categories->id])->paginate(4);
             }
         }
 
         $route='product-category';
+//
+//        // data loading with ajax
+//        if($request->ajax()){
+//            $view=view('frontend.layouts._single-product',compact('products'))->render();
+//            return response()->json(['html'=>$view]);
+//        }
 
+        return view('frontend.pages.product.product-category',compact(['categories','route','products']));
+    }
+
+    //load Product with Ajax
+    public function loadProduct(Request $request, $slug){
+        $categories=Category::with(['products'])->where('slug',$slug)->first();
+        $products=Product::where(['status'=>'active','cat_id'=>$categories->id])->paginate(4);
 
         if($request->ajax()){
             $view=view('frontend.layouts._single-product',compact('products'))->render();
             return response()->json(['html'=>$view]);
         }
-        return view('frontend.pages.product.product-category',compact(['categories','route','products']));
+
     }
 
     public function productDetail($slug){
@@ -173,15 +186,103 @@ class IndexController extends Controller
 
         return view('frontend.user.order',compact('user'));
     }
+
     public function userAddress(){
         $user=Auth::user();
-
         return view('frontend.user.address',compact('user'));
     }
+    //Billing or edit address
+    public function billingAddress(Request $request,$id){
+    //dd($request->all());
+//        $user=User::where('id',$id)->get();
+//        return $user;
+        $user=User::where('id',$id)->update([
+            'country'=>$request->country,
+            'city'=>$request->city,
+            'postcode'=>$request->postcode,
+            'state'=>$request->state,
+            'address'=>$request->address,
+        ]);
+        if($user){
+            return back()->with('success','Billing Address successfully updated');
+        }
+        else{
+            return back()->with('error','Somethig went wrong');
+        }
+    }
+    //Shipping  address
+    public function shippingAddress(Request $request,$id){
+//        dd($request->all());
+//        $user=User::where('id',$id)->get();
+//        return $user;
+        $user=User::where('id',$id)->update([
+            'shiping_country'=>$request->shiping_country,
+            'shiping_city'=>$request->shiping_city,
+            'shiping_postcode'=>$request->shiping_postcode,
+            'shiping_state'=>$request->shiping_state,
+            'shiping_address'=>$request->shiping_address,
+        ]);
+        if($user){
+            return back()->with('success','Shipping Address successfully updated');
+        }
+        else{
+            return back()->with('error','Somethig went wrong');
+        }
+    }
+
     public function userAccount(){
         $user=Auth::user();
 
         return view('frontend.user.account',compact('user'));
+    }
+    //account Update
+    public function updateAccount(Request $request,$id){
+        $hashpassword=Auth::user()->password;
+//        return $hashpassword;
+//        return $request->all();
+        if(!$request->oldpassword==null && $request->newpassword==null){
+            $data=$request->validate([
+                'full_name'=>'required|string',
+                'phone'=>'nullable',
+            ]);
+            if(Hash::check($request->oldpassword,$hashpassword)){
+                User::where('id',$id)->update([
+                    'full_name'=>$request->full_name,
+                    'phone'=>$request->phone,
+                ]);
+                return back()->with('success','Account successfully updated ');
+            }
+            else{
+                return back()->with('error',"Password does not match");
+            }
+
+        }
+        else{
+            if(Hash::check($request->oldpassword,$hashpassword)){
+                if(!Hash::check($request->newpassword,$hashpassword)){
+                    $data=$request->validate([
+                        'full_name'=>'required|string',
+                        'phone'=>'nullable',
+                        'newpassword'=>'required|min:4'
+                    ]);
+//                    $data['password']=bcrypt($data['newpassword']);
+//                    User::where('id',$id)->update($data);
+                    User::where('id',$id)->update([
+                        'full_name'=>$request->full_name,
+                        'phone'=>$request->phone,
+                        'password'=>bcrypt($request->newpassword),
+                    ]);
+                    return back()->with('success','Account successfully updated ');
+                }else{
+                    return back()->with('error','new password can not be save with old password');
+                }
+            }
+            else{
+                return back()->with('error',"Old password does not save");
+            }
+
+        }
+
     }
 }
 

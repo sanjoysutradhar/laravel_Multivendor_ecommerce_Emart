@@ -124,7 +124,7 @@
 
                     <!-- Shop Pagination Area -->
                     <div id="ajax-load" class="ajax-load text-center" style="display: none">
-                        <img src="{{asset('frontend/img/loader.gif')}}" alt="loader" style="width: 6%">
+                        <img src="{{asset('frontend/img/loader.gif')}}" alt="loader" style="width: 15%">
                     </div>
 
                 </div>
@@ -133,8 +133,11 @@
     </section>
 @endsection
 
+
 @section('scripts')
 {{--    <script src="{{asset('frontend/assets/js/jquery-3.6.1.js')}}"></script>--}}
+
+{{--//data filter--}}
     <script>
         $('#sortBy').change(function(){
             var sort= $('#sortBy').val();
@@ -142,35 +145,47 @@
         });
     </script>
 
+{{--Data loading with Ajax--}}
     <script>
+        var page=1;
+        $(window).scroll(function () {
+            if($(window).scrollTop() + $(window).height()>=$(document).height()){
+                page ++;
+                loadmoreData(page)
+            }
+        })
         function loadmoreData(page){
             $.ajax({
-                url:'?page='+page,
-                type:'get',
-                dataType: 'json',
+                // url:'?page='+page,
+                {{--url:"{{route('load.product',"+ $categories->slug +")}}?page="+page,--}}
+                url:"{{route('load.product',$categories->slug)}}?page="+page,
+                type:'GET',
+                dataType: 'JSON',
                 beforeSend:function(){
                     $('.ajax-load').show();
-
                 },
-            })
-            .done(function(data){
-                if(data.html==''){
-                    $('.ajax-load').html("No more product available");
-                    return;
+                success: function (data) {
+                    if(data.html==''){
+                        $('.ajax-load').html("No more product available");
+                        return;
+                    }
+                    $('.ajax-load').hide();
+                    $('#product-data').append(data.html);
                 }
-                $('.ajax-load').hide();
-                $('#product-data').append(data.html);
             })
+            // .done(function(data){
+            //     console.log(data)
+            //     if(data.html==''){
+            //         $('.ajax-load').html("No more product available");
+            //         return;
+            //     }
+            //     $('.ajax-load').hide();
+            //     $('#product-data').append(data.html);
+            // })
             .fail(function(){
                 alert('Something went wrong! please try again');
             });
-            var page=1;
-            $(window).scroll(function () {
-                if($(window).scrollTop() + $(window).height()+120>=$(document).height()){
-                    page ++;
-                    loadmoreData(page)
-                }
-            })
+
         }
     </script>
 

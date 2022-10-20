@@ -29,30 +29,31 @@
                     <div class="my-account-content mb-50">
                         <h5 class="mb-3">Account Details</h5>
 
-                        <form action="#" method="post">
+                        <form action="{{route('update.account',$user->id)}}" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="firstName">First Name *</label>
                                         <input type="text" class="form-control" id="firstName" name="full_name" Value="{{$user->full_name}}">
+                                        @error('full_name')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
                                 </div>
-{{--                                <div class="col-12 col-lg-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="lastName">Last Name *</label>--}}
-{{--                                        <input type="text" class="form-control" id="lastName" placeholder="ISLAM">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-                                <div class="col-12">
+                                <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="displayName">User Name</label>
-                                        <input type="text" class="form-control" id="username" name="username" value="{{$user->username}}">
+                                        <input type="text" class="form-control" id="username" name="username" value="{{$user->username}}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="displayName">Phone Number *</label>
                                         <input type="number" class="form-control" id="phone" name="phone" placeholder="01601845222" value="{{$user->phone}}">
+                                        @error('phone')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -64,21 +65,24 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="currentPass">Current Password (Leave blank to leave unchanged)</label>
-                                        <input type="password" class="form-control" id="currentPass">
+                                        <input type="password"  class="form-control" id="currentPass" name="oldpassword">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="newPass">New Password (Leave blank to leave unchanged)</label>
-                                        <input type="password" class="form-control" id="newPass">
+                                        <input type="password" class="form-control" id="newPass"  name="newpassword">
+                                        @error('newpassword')
+                                            <p class="text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="confirmPass">Confirm New Password</label>
-                                        <input type="password" class="form-control" id="confirmPass">
-                                    </div>
-                                </div>
+{{--                                <div class="col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="confirmPass">Confirm New Password</label>--}}
+{{--                                        <input type="password" class="form-control" id="confirmPass">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary">Save Changes</button>
                                 </div>
