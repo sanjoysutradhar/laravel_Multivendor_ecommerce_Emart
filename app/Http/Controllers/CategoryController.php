@@ -167,7 +167,7 @@ class CategoryController extends Controller
 
     public function getChildByParentID(Request $request, $id){
         $category=Category::find($request->id);
-        
+
         if($category){
             $child_id = Category::getChildByParentID($request->id);
             if(count($child_id)<=0){
@@ -175,8 +175,8 @@ class CategoryController extends Controller
             }
             return response()->json(['status'=>true,'data'=>$child_id,'msg'=>'']);
             }
-            else{
-                return response()->json(['status'=>false,'data'=>null,'msg'=>'']);
-            }
+        else{
+            return response()->json(['status'=>false,'data'=>null,'msg'=>'']);
+        }
     }
 }

@@ -1,5 +1,5 @@
 
-<header class="header_area">
+
     <!-- Top Header Area -->
     <div class="top-header-area">
         <div class="container h-100">
@@ -223,50 +223,54 @@
 
                         <!-- Cart -->
                         <div class="cart-area">
-                            <div class="cart--btn"><i class="icofont-cart"></i> <span class="cart_quantity">2</span>
+                            @auth
+                            <div class="cart--btn">
+                                <i class="icofont-cart"></i> <span class="cart_quantity" >
+                                    {{\Gloudemans\Shoppingcart\Facades\Cart::instance('shopping')->count()}}
+                                </span>
                             </div>
 
                             <!-- Cart Dropdown Content -->
                             <div class="cart-dropdown-content">
                                 <ul class="cart-list">
+                                    <?php
+                                    $carts=Gloudemans\Shoppingcart\Facades\Cart::instance('shopping')->content();
+//                                    $photos=explode(',',$carts->photo);
+                                    ?>
+                                    @foreach($carts as $item)
                                     <li>
                                         <div class="cart-item-desc">
                                             <a href="#" class="image">
-                                                <img src="frontend/img/product-img/top-1.png" class="cart-thumb" alt="">
+                                                @php
+                                                    $photos=explode(',',$item->model->photo);
+                                                @endphp
+                                                @if(isset($photos[0]))
+                                                    <img src="{{$photos[0]}}" class="cart-thumb" alt="">
+                                                @endif
                                             </a>
                                             <div>
-                                                <a href="#">Kid's Fashion</a>
-                                                <p>1 x - <span class="price">$32.99</span></p>
+                                                <a href="{{route('product.detail',$item->model->slug)}}">{{$item->name}}</a>
+                                                <p>{{$item->qty}} x - <span class="price">{{number_format($item->price,2)}}</span></p>
                                             </div>
                                         </div>
-                                        <span class="dropdown-product-remove"><i class="icofont-bin"></i></span>
+                                        <span class="dropdown-product-remove cart_delete" data-id="{{$item->rowId}}"><i class="icofont-bin"></i></span>
                                     </li>
-                                    <li>
-                                        <div class="cart-item-desc">
-                                            <a href="#" class="image">
-                                                <img src="frontend/img/product-img/best-4.png" class="cart-thumb" alt="">
-                                            </a>
-                                            <div>
-                                                <a href="#">Headphone</a>
-                                                <p>2x - <span class="price">$49.99</span></p>
-                                            </div>
-                                        </div>
-                                        <span class="dropdown-product-remove"><i class="icofont-bin"></i></span>
-                                    </li>
+                                    @endforeach
+
                                 </ul>
                                 <div class="cart-pricing my-4">
                                     <ul>
                                         <li>
                                             <span>Sub Total:</span>
-                                            <span>$822.96</span>
+                                            <span>${{\Gloudemans\Shoppingcart\Facades\Cart::subtotal()}}</span>
                                         </li>
-                                        <li>
-                                            <span>Shipping:</span>
-                                            <span>$30.00</span>
-                                        </li>
+{{--                                        <li>--}}
+{{--                                            <span>Shipping:</span>--}}
+{{--                                            <span>$30.00</span>--}}
+{{--                                        </li>--}}
                                         <li>
                                             <span>Total:</span>
-                                            <span>$856.63</span>
+                                            <span>${{\Gloudemans\Shoppingcart\Facades\Cart::subtotal()}}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -274,6 +278,11 @@
                                     <a href="checkout-1.html" class="btn btn-primary d-block">Checkout</a>
                                 </div>
                             </div>
+                            @else
+                                <div class="cart--btn"><i class="icofont-cart"></i>
+                                    <span class="cart_quantity">0</span>
+                                </div>
+                            @endauth
                         </div>
 
                         <!-- Account -->
@@ -322,7 +331,6 @@
             </div>
         </div>
     </div>
-</header>
 
 
 

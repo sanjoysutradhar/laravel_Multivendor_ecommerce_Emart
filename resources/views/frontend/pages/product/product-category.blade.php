@@ -135,6 +135,7 @@
 
 
 @section('scripts')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {{--    <script src="{{asset('frontend/assets/js/jquery-3.6.1.js')}}"></script>--}}
 
 {{--//data filter--}}
@@ -188,5 +189,47 @@
 
         }
     </script>
-
+<script>
+    $(document).on('click','.add_to_cart',function(){
+        var product_id=$(this).data('product-id');
+        var product_qty=$(this).data('quantity');
+        // alert(product_qut);
+        var token="{{csrf_token()}}";
+        var path="{{route('cart.store')}}";
+        $.ajax({
+            url:path,
+            type:"POST",
+            dataType: "JSON",
+            data:{
+                product_id:product_id,
+                product_qty:product_qty,
+                _token:token,
+            },
+            beforeSend:function () {
+                // $('.add_to_cart' + product_id).html("<i class='fa fa-spinner fa-spin'></i>");
+                // console.log($(".add_to_cart").html("<i class='fa fa-spinner fa-spin'></i>"));
+                $('.add_to_cart',product_id).html("<i class='fa fa-spinner fa-spin'></i>Loading...");
+            },
+            complete:function () {
+                $('.add_to_cart',product_id).html("<i class='fa fa-cart-plus'></i>Add to Cart");
+            },
+            success:function (data) {
+                console.log(data);
+                if(data['status']){
+                    $('body #header-ajax').html(data['header']);
+                    swal({
+                        title: "Good job!",
+                        text: data['message'],
+                        icon: "success",
+                        button: "OK!",
+                    });
+                }
+            },
+            error:function (err) {
+                console.log(err);
+            }
+        });
+    });
+</script>
 @endsection
+

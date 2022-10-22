@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Frontend\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,10 @@ Route::get('/load-product/{slug}',[IndexController::class,'loadProduct'])->name(
 
 //product detail
 Route::get('/product-detail/{slug}',[IndexController::class,'productDetail'])->name('product.detail');
+
+//cart section
+Route::post('cart/store',[CartController::class,'cartStore'])->name('cart.store')->middleware('auth');
+Route::post('cart/delete',[CartController::class,'cartDelete'])->name('cart.delete')->middleware('auth');;
 
 //Frontend end section
 

@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable =[
-        
+
         'title',
         'slug',
         'summary',
@@ -24,7 +24,7 @@ class Product extends Model
         'vendor_id',
         'brand_id',
         'cat_id',
-        'child_cat_id',	
+        'child_cat_id',
     ];
 
     // public function brands(){
@@ -32,5 +32,8 @@ class Product extends Model
     // }
     public function related_product(){
         return $this->hasMany('App\Models\Product','cat_id','cat_id')->where('status','active')->limit(10);
+    }
+    public static function getProductByCart($id){
+        return self::where('id',$id)->get()->toArray();
     }
 }

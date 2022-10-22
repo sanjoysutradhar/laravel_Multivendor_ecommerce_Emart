@@ -6,6 +6,7 @@ use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\User;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -21,6 +22,10 @@ class IndexController extends Controller
         $banners=Banner::where(['status'=>'active', 'condition'=>'banner'])->orderBy('id','DESC')->limit(4)->get();
         $categories=Category::where(['status'=>'active','is_parent'=>1])->orderBy('id','DESC')->limit(3)->get();
 
+//        if(Auth::check()){
+//            $cart=Cart::instance('shopping');
+//            dd($cart);
+//        }
         return view('frontend.index',compact(['banners','categories']));
     }
 

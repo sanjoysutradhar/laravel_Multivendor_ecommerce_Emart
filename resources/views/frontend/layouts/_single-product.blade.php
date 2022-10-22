@@ -37,7 +37,11 @@
                 <div class="product_description">
                     <!-- Add to cart -->
                     <div class="product_add_to_cart">
-                        <a href="#"><i class="icofont-shopping-cart"></i> Add to Cart</a>
+                        @auth
+                            <a href="#" data-quantity="1" data-product-id="{{$item->id}}" class="add_to_cart"><i class="icofont-shopping-cart"></i> Add to Cart</a>
+                        @else
+                            <a href="{{route('user.auth')}}"><i class="icofont-shopping-cart"></i> Add to Cart</a>
+                        @endauth
                     </div>
 
                     <!-- Quick View -->
@@ -60,6 +64,4 @@
         </div>
 
     @endforeach
-{{--@else--}}
-{{--    <p> No Product</p>--}}
-{{--@endif--}}
+
