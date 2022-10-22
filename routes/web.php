@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\CouponContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,7 @@ Route::get('/load-product/{slug}',[IndexController::class,'loadProduct'])->name(
 Route::get('/product-detail/{slug}',[IndexController::class,'productDetail'])->name('product.detail');
 
 //cart section
+Route::get('cart',[CartController::class,'cart'])->name('cart');
 Route::post('cart/store',[CartController::class,'cartStore'])->name('cart.store')->middleware('auth');
 Route::post('cart/delete',[CartController::class,'cartDelete'])->name('cart.delete')->middleware('auth');;
 
@@ -83,6 +85,10 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
     //user section
     Route::resource('/user',UserController::class);
     Route::post('/user_status',[UserController::class,'user_status'])->name('user.status');
+
+    //Coupon section
+    Route::resource('/coupon',CouponContoller::class);
+    Route::post('/coupon_status',[CouponContoller::class,'coupon_status'])->name('coupon.status');
 
 });
 

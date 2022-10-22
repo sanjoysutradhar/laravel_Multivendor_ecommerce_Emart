@@ -25,6 +25,7 @@
             </div>
         </div>
     </div>
+
     @yield('content')
 
     <!-- Footer Area -->
@@ -33,8 +34,9 @@
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     @include('frontend.layouts.script')
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
         $(document).on('click','.cart_delete',function(){
             var cart_id=$(this).data('id');
             var token="{{csrf_token()}}";

@@ -36,7 +36,7 @@
             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sub_menu"><i class="icon-grid"></i></a></li>
             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i class="icon-settings"></i></a></li>
         </ul>
-            
+
         <!-- Tab panes -->
         <div class="tab-content p-l-0 p-r-0">
             <div class="tab-pane active" id="admin">
@@ -62,7 +62,7 @@
                                 <li><a href="{{route('brand.create')}}">Add Brand</a></li>
                             </ul>
                         </li>
-                        
+
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-briefcase"></i><span>Products Management</span> </a>
                             <ul>
                                 <li><a href="{{route('product.index')}}">All Products</a></li>
@@ -76,7 +76,7 @@
                             </ul>
                         </li>
                         <li><a href="app-inbox.html"><i class="icon-layers"></i>Order Management</a></li>
-                        
+
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-basket-loaded"></i><span>Carts Management</span> </a>
                             <ul>
                                 <li><a href="departments.html">All Departments</a></li>
@@ -95,7 +95,7 @@
                                 <li><a href="add-departments.html">Add Departments</a></li>
                             </ul>
                         </li>
-                        
+
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="fas fa-newspaper"></i><span>Post Management</span> </a>
                             <ul>
                                 <li><a href="departments.html">All Departments</a></li>
@@ -110,11 +110,12 @@
                         </li>
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="fa fa-gift"></i><span>Coupon Management</span> </a>
                             <ul>
-                                <li><a href="departments.html">All Departments</a></li>
-                                <li><a href="add-departments.html">Add Departments</a></li>
+                                <li><a href="{{route('coupon.index')}}">All Coupons</a></li>
+                                <li><a href="{{route('coupon.create')}}">Add Coupons</a></li>
+
                             </ul>
                         </li>
-                        
+
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-bubbles"></i><span>Comments Management</span> </a>
                             <ul>
                                 <li><a href="departments.html">All Departments</a></li>
@@ -252,7 +253,7 @@
                     <li data-theme="purple">
                         <div class="purple"></div>
                         <span>Purple</span>
-                    </li>                   
+                    </li>
                     <li data-theme="blue" class="active">
                         <div class="blue"></div>
                         <span>Blue</span>
@@ -293,7 +294,7 @@
                         <label class="fancy-checkbox">
                             <input type="checkbox" name="checkbox" checked>
                             <span>Notifications</span>
-                        </label>                      
+                        </label>
                     </li>
                     <li>
                         <label class="fancy-checkbox">

@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function cart(){
+        return view('frontend.pages.cart.index');
+    }
+
     public function cartStore(Request $request){
         $product_id=$request->input('product_id');
         $product_qty=$request->input('product_qty');
@@ -54,9 +58,13 @@ class CartController extends Controller
         $response['cart_count']=cart::instance('shopping')->count();
         $response['message']="Cart Successfully Removed";
 
+
+
         if($request->ajax()){
             $header=view('frontend.layouts.header')->render();
             $response['header']=$header;
+            $cart_index=view('frontend.pages.cart.index')->render();
+            $response['cart_index']=$cart_index;
         }
         return json_encode($response);
     }

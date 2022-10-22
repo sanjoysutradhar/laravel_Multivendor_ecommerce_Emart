@@ -274,12 +274,14 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="cart-box">
-                                    <a href="checkout-1.html" class="btn btn-primary d-block">Checkout</a>
+                                <div class="cart-box d-flex">
+                                    <a href="{{route('cart')}}" class="btn btn-success btn-sm col-md-6">Cart</a>
+                                    <a href="checkout-1.html" class="btn btn-primary btn-sm">Checkout</a>
                                 </div>
                             </div>
                             @else
-                                <div class="cart--btn"><i class="icofont-cart"></i>
+                                <div class="cart--btn">
+                                    <i class="icofont-cart"></i>
                                     <span class="cart_quantity">0</span>
                                 </div>
                             @endauth
