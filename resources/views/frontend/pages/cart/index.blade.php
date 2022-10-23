@@ -17,52 +17,13 @@
     <!-- Breadcumb Area -->
 
     <!-- Cart Area -->
-    <div class="cart_area section_padding_100_70 clearfix" id="cart-index-ajax" >
+    <div class="cart_area section_padding_100_70 clearfix" >
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-12">
                     <div class="cart-table">
-                        <div class="table-responsive">
-                            <table class="table table-bordered mb-30">
-                                <thead>
-                                <tr>
-                                    <th scope="col"><i class="icofont-ui-delete"></i></th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Product</th>
-                                    <th scope="col">Unit Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Total</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach(\Gloudemans\Shoppingcart\Facades\Cart::instance('shopping')->content() as $item)
-                                    <tr>
-                                    <th scope="row" >
-                                        <i class="icofont-close " id="cart_delete" data-id="{{$item->rowId}}"></i>
-                                    </th>
-                                    <td>
-{{--                                        <img src="img/product-img/onsale-1.png" alt="Product">--}}
-                                        @php
-                                            $photos=explode(',',$item->model->photo);
-                                        @endphp
-                                        @if(isset($photos[0]))
-                                            <img src="{{$photos[0]}}" class="cart-thumb" alt="">
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{route('product.detail',$item->model->slug)}}">{{$item->name}}</a>
-                                    </td>
-                                    <td>${{$item->price}}</td>
-                                    <td>
-                                        <div class="quantity">
-                                            <input type="number" class="qty-text" id="qty2" step="1" min="1" max="99" name="quantity" value="{{$item->qty}}">
-                                        </div>
-                                    </td>
-                                    <td>{{$item->subtotal()}}</td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                        <div class="table-responsive" id="cart_list">
+                            @include('frontend.layouts._cart-lists')
                         </div>
                     </div>
                 </div>
@@ -73,9 +34,10 @@
                         <p>Enter your coupon code here &amp; get awesome discounts!</p>
                         <!-- Form -->
                         <div class="coupon-form">
-                            <form action="#">
-                                <input type="text" class="form-control" placeholder="Enter Your Coupon Code">
-                                <button type="submit" class="btn btn-primary">Apply Coupon</button>
+                            <form action="{{route('coupon.add')}}" id="coupon-form" method="POST">
+                                @csrf
+                                <input type="text" name="code" class="form-control" placeholder="Enter Your Coupon Code">
+                                <button type="submit" class="coupon-btn btn btn-primary">Apply Coupon</button>
                             </form>
                         </div>
                     </div>
@@ -116,6 +78,17 @@
 
 @endsection
 @section('scripts')
+{{--    //coupon add--}}
+<script>
+    $(document).on('click','.coupon-btn',function (e) {
+        e.preventDefault();
+        var code=$('input[name=code]').val();
+        $('.coupon-btn').html('<i class="fa-solid fa-spinner"></i> Applying...');
+        $('#coupon-form').submit();
+
+    })
+</script>
+{{--?--}}
     <script>
         $(document).on('click','#cart_delete',function(){
             var cart_id=$(this).data('id');
@@ -130,10 +103,11 @@
                     _token:token,
                 },
                 success:function (data) {
-                    console.log(data['header']);
+                    console.log(data);
 
                     $('body #header-ajax').html(data['header']);
-
+                    $('body #cart_counter').html(data['cart_count']);
+                    $('body #cart_list').html(data['cart_list']);
                     // $('body div #cart-index-ajax').html(data['cart_index']);
 
                     if(data['status']){
@@ -144,15 +118,66 @@
                             button: "OK!",
                         });
                     }
-                    setTimeout(function(){
-                        // $('#cart-index-ajax').reload(); // then reload the page.(3)
-                        location.reload(); // then reload the page.(3)
-                    }, 2000)
+                    // setTimeout(function(){
+                    //     // $('#cart-index-ajax').reload(); // then reload the page.(3)
+                    //     location.reload(); // then reload the page.(3)
+                    // }, 2000)
                 },
                 error:function (err) {
                     console.log(err);
                 }
             });
         });
+    </script>
+    <script>
+        $(document).on('click','.qty-text',function(){
+            var id=$(this).data('id');
+            var spinner=$(this),input=spinner.closest("div.quantity").find('input[type=number]');
+            // alert(input.val());
+            if(input.val()==1){
+                return false;
+            }
+
+            if(input.val()!=1){
+                var newVal=parseFloat(input.val());
+                $('#qty-input-'+id).val(newVal);
+            }
+            var productQuantity=$("#update-cart-"+id).data('product-quantity');
+            update_cart(id,productQuantity);
+
+        });
+        function update_cart(id,productQuantity) {
+            var rowId=id;
+            var product_qty=$('#qty-input-'+rowId).val();
+            var token="{{csrf_token()}}";
+            var path="{{route('cart.update')}}";
+            $.ajax({
+                url:path,
+                type:"POST",
+                data:{
+                    _token: token,
+                    product_qty:product_qty,
+                    rowId:rowId,
+                    productQuantity:productQuantity,
+                },
+                success:function(data){
+                    console.log(data['message']);
+                    $('body #header-ajax').html(data['header']);
+                    $('body #cart_counter').html(data['cart_count']);
+                    $('body #cart_list').html(data['cart_list']);
+                    if(data['status']){
+                        swal({
+                            title: "Good job!",
+                            text: data['message'],
+                            icon: "success",
+                            button: "OK!",
+                        });
+                    }
+                    else{
+                        alert(data['message']);
+                    }
+                }
+            })
+        }
     </script>
 @endsection

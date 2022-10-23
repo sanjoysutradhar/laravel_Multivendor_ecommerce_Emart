@@ -225,7 +225,7 @@
                         <div class="cart-area">
                             @auth
                             <div class="cart--btn">
-                                <i class="icofont-cart"></i> <span class="cart_quantity" >
+                                <i class="icofont-cart"></i> <span class="cart_quantity" id="cart-counter" >
                                     {{\Gloudemans\Shoppingcart\Facades\Cart::instance('shopping')->count()}}
                                 </span>
                             </div>
@@ -270,7 +270,12 @@
 {{--                                        </li>--}}
                                         <li>
                                             <span>Total:</span>
-                                            <span>${{\Gloudemans\Shoppingcart\Facades\Cart::subtotal()}}</span>
+                                            @if(session()->has('coupon'))
+                                                <span>${{filter_var(\Gloudemans\Shoppingcart\Facades\Cart::subtotal(),FILTER_SANITIZE_NUMBER_INT)}}</span>
+{{--                                                <span>${{session('coupon')['value']}}</span>--}}
+                                            @else
+                                                <span>${{\Gloudemans\Shoppingcart\Facades\Cart::subtotal()}}</span>
+                                            @endif
                                         </li>
                                     </ul>
                                 </div>

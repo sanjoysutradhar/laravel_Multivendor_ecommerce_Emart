@@ -208,15 +208,16 @@
             beforeSend:function () {
                 // $('.add_to_cart' + product_id).html("<i class='fa fa-spinner fa-spin'></i>");
                 // console.log($(".add_to_cart").html("<i class='fa fa-spinner fa-spin'></i>"));
-                $('.add_to_cart',product_id).html("<i class='fa fa-spinner fa-spin'></i>Loading...");
+                $('.add_to_cart').html("<i class='fa fa-spinner fa-spin'></i>Loading...");
             },
             complete:function () {
-                $('.add_to_cart',product_id).html("<i class='fa fa-cart-plus'></i>Add to Cart");
+                $('.add_to_cart').html("<i class='icofont-shopping-cart'></i>Add to Cart");
             },
             success:function (data) {
                 console.log(data);
                 if(data['status']){
                     $('body #header-ajax').html(data['header']);
+                    $('body #cart-counter').html(data['cart_count']);
                     swal({
                         title: "Good job!",
                         text: data['message'],

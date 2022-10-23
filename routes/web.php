@@ -52,7 +52,10 @@ Route::get('/product-detail/{slug}',[IndexController::class,'productDetail'])->n
 Route::get('cart',[CartController::class,'cart'])->name('cart');
 Route::post('cart/store',[CartController::class,'cartStore'])->name('cart.store')->middleware('auth');
 Route::post('cart/delete',[CartController::class,'cartDelete'])->name('cart.delete')->middleware('auth');;
+Route::post('cart/update',[CartController::class,'cartUpdate'])->name('cart.update')->middleware('auth');;
 
+//coupon section
+Route::post('/coupon/add',[CartController::class,'couponAdd'])->name('coupon.add');
 //Frontend end section
 
 
@@ -89,6 +92,7 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
     //Coupon section
     Route::resource('/coupon',CouponContoller::class);
     Route::post('/coupon_status',[CouponContoller::class,'coupon_status'])->name('coupon.status');
+
 
 });
 
