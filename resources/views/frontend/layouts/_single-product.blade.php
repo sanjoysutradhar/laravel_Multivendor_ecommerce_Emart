@@ -21,12 +21,16 @@
                     <div class="product_badge">
                         <span>{{$item->condition}}</span>
                     </div>
-
+                    @auth
                     <!-- Wishlist -->
                     <div class="product_wishlist">
-                        <a href="wishlist.html"><i class="icofont-heart"></i></a>
+                        <a href="javascript:void(0);" class="add_to_wishlist" data-quantity="1" data-product-id="{{$item->id}}" id="add_to_wishlist_{{$item->id}}"><i class="icofont-heart"></i></a>
                     </div>
-
+                    @else
+                        <div class="product_wishlist">
+                            <a href="javascript:void(0);" class="add_to_wishlist_login" ><i class="icofont-heart"></i></a>
+                        </div>
+                    @endauth
                     <!-- Compare -->
                     <div class="product_compare">
                         <a href="compare.html"><i class="icofont-exchange"></i></a>

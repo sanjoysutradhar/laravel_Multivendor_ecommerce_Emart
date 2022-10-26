@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -56,6 +57,14 @@ Route::post('cart/update',[CartController::class,'cartUpdate'])->name('cart.upda
 
 //coupon section
 Route::post('/coupon/add',[CartController::class,'couponAdd'])->name('coupon.add');
+
+//wishlist section
+Route::get('wishlist/',[WishlistController::class,'wishlist'])->name('wishlist');
+Route::post('wishlist/store',[WishlistController::class,'wishlistStore'])->name('wishlist.store');
+Route::post('wishlist/move-to-cart',[WishlistController::class,'moveToCart'])->name('wishlist.move.cart');
+Route::post('wishlist/delete',[WishlistController::class,'wishlistDelete'])->name('wishlist.delete');
+
+
 //Frontend end section
 
 

@@ -189,7 +189,8 @@
 
         }
     </script>
-<script>
+{{--    add to cart--}}
+    <script>
     $(document).on('click','.add_to_cart',function(){
         var product_id=$(this).data('product-id');
         var product_qty=$(this).data('quantity');
@@ -232,5 +233,73 @@
         });
     });
 </script>
+
+{{--    add to wishlist--}}
+    <script>
+        $(document).on('click','.add_to_wishlist',function(){
+            var product_id=$(this).data('product-id');
+            var product_qty=$(this).data('quantity');
+            // alert(product_qut);
+            var token="{{csrf_token()}}";
+            var path="{{route('wishlist.store')}}";
+            $.ajax({
+                url:path,
+                type:"POST",
+                dataType: "JSON",
+                data:{
+                    product_id:product_id,
+                    product_qty:product_qty,
+                    _token:token,
+                },
+                beforeSend:function () {
+                    // $('.add_to_cart' + product_id).html("<i class='fa fa-spinner fa-spin'></i>");
+                    // console.log($(".add_to_cart").html("<i class='fa fa-spinner fa-spin'></i>"));
+                    $('.add_to_wishlist').html("<i class='fa fa-spinner fa-spin'></i>");
+                },
+                complete:function () {
+                    $('.add_to_wishlist').html("<i class='icofont-heart'></i>");
+                },
+                success:function (data) {
+                    console.log(data);
+                    if(data['status']){
+                        $('body #header-ajax').html(data['header']);
+                        // $('body #wishlist_count').html(data['wishlist_count']);
+                        swal({
+                            title: "Good job!",
+                            text: data['message'],
+                            icon: "success",
+                            button: "OK!",
+                        });
+                    }
+                    else if(data['present']){
+                        swal({
+                            title: "Opps!",
+                            text: data['message'],
+                            icon: "warning",
+                            button: "OK!",
+                        });
+                    }
+                    else{
+                        swal({
+                            title: "Sorry!",
+                            text: "You  can't add that product",
+                            icon: "Error",
+                            button: "OK!",
+                        });
+                    }
+                },
+                error:function (err) {
+                    console.log(err);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).on('click','.add_to_wishlist_login',function () {
+            alert("You should login first!");
+        })
+
+    </script>
 @endsection
 

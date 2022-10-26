@@ -218,7 +218,8 @@
 
                         <!-- Wishlist -->
                         <div class="wishlist-area">
-                            <a href="wishlist.html" class="wishlist-btn"><i class="icofont-heart"></i></a>
+                            <a href="{{route('wishlist')}}" class="wishlist-btn" id="wishlist_count"><i class="icofont-heart"></i>
+                            </a>
                         </div>
 
                         <!-- Cart -->
