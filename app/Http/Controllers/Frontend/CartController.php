@@ -114,7 +114,7 @@ class CartController extends Controller
             return back()->with('error', 'Invalid coupon code, please enter a valid coupon code');
         }
         if($coupon){
-            $total_price=Cart::instance('shopping')->subtotal();
+            $total_price=(float) str_ireplace(',','',Cart::instance('shopping')->subtotal());
             session()->put('coupon',[
                 'id'=>$coupon->id,
                 'code'=>$coupon->code,

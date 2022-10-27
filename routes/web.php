@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,9 +52,9 @@ Route::get('/product-detail/{slug}',[IndexController::class,'productDetail'])->n
 
 //cart section
 Route::get('cart',[CartController::class,'cart'])->name('cart');
-Route::post('cart/store',[CartController::class,'cartStore'])->name('cart.store')->middleware('auth');
-Route::post('cart/delete',[CartController::class,'cartDelete'])->name('cart.delete')->middleware('auth');;
-Route::post('cart/update',[CartController::class,'cartUpdate'])->name('cart.update')->middleware('auth');;
+Route::post('cart/store',[CartController::class,'cartStore'])->name('cart.store');
+Route::post('cart/delete',[CartController::class,'cartDelete'])->name('cart.delete');
+Route::post('cart/update',[CartController::class,'cartUpdate'])->name('cart.update');
 
 //coupon section
 Route::post('/coupon/add',[CartController::class,'couponAdd'])->name('coupon.add');
@@ -64,14 +65,15 @@ Route::post('wishlist/store',[WishlistController::class,'wishlistStore'])->name(
 Route::post('wishlist/move-to-cart',[WishlistController::class,'moveToCart'])->name('wishlist.move.cart');
 Route::post('wishlist/delete',[WishlistController::class,'wishlistDelete'])->name('wishlist.delete');
 
-
+// checkout Controller
+ Route::get("checkout1/",[CheckoutController::class,'checkout1'])->name('checkout1')->middleware('user');
 //Frontend end section
 
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('admin');
 
 //Admin Dashboard
 Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
@@ -111,7 +113,7 @@ Route::group(['prefix'=>'seller','middleware'=>['auth','seller']],function(){
 
 });
 //  User dhasboard
-Route::middleware('auth')->group(function (){
+//Route::middleware('auth')->group(function (){
 
 Route::group(['prefix'=>'user','middleware'=>['auth','user']],function (){
     Route::get('/dashboard',[IndexController::class,'userDashboard'])->name('user.dashboard');
@@ -125,4 +127,4 @@ Route::group(['prefix'=>'user','middleware'=>['auth','user']],function (){
     Route::post('/update/account/{id}',[IndexController::class,'updateAccount'])->name('update.account');
 });
 
-});
+//});

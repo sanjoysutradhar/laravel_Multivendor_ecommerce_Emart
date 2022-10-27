@@ -21,16 +21,16 @@
                     <div class="product_badge">
                         <span>{{$item->condition}}</span>
                     </div>
-                    @auth
+{{--                    @auth--}}
                     <!-- Wishlist -->
                     <div class="product_wishlist">
                         <a href="javascript:void(0);" class="add_to_wishlist" data-quantity="1" data-product-id="{{$item->id}}" id="add_to_wishlist_{{$item->id}}"><i class="icofont-heart"></i></a>
                     </div>
-                    @else
-                        <div class="product_wishlist">
-                            <a href="javascript:void(0);" class="add_to_wishlist_login" ><i class="icofont-heart"></i></a>
-                        </div>
-                    @endauth
+{{--                    @else--}}
+{{--                        <div class="product_wishlist">--}}
+{{--                            <a href="javascript:void(0);" class="add_to_wishlist_login" ><i class="icofont-heart"></i></a>--}}
+{{--                        </div>--}}
+{{--                    @endauth--}}
                     <!-- Compare -->
                     <div class="product_compare">
                         <a href="compare.html"><i class="icofont-exchange"></i></a>
@@ -41,11 +41,11 @@
                 <div class="product_description">
                     <!-- Add to cart -->
                     <div class="product_add_to_cart">
-                        @auth
+{{--                        @auth--}}
                             <a href="#" data-quantity="1" data-product-id="{{$item->id}}" class="add_to_cart"><i class="icofont-shopping-cart"></i> Add to Cart</a>
-                        @else
-                            <a href="{{route('user.auth')}}"><i class="icofont-shopping-cart"></i> Add to Cart</a>
-                        @endauth
+{{--                        @else--}}
+{{--                            <a href="{{route('user.auth')}}"><i class="icofont-shopping-cart"></i> Add to Cart</a>--}}
+{{--                        @endauth--}}
                     </div>
 
                     <!-- Quick View -->

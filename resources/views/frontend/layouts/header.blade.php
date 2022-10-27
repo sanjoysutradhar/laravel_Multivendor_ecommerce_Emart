@@ -224,7 +224,7 @@
 
                         <!-- Cart -->
                         <div class="cart-area">
-                            @auth
+{{--                            @auth--}}
                             <div class="cart--btn">
                                 <i class="icofont-cart"></i> <span class="cart_quantity" id="cart-counter" >
                                     {{\Gloudemans\Shoppingcart\Facades\Cart::instance('shopping')->count()}}
@@ -272,7 +272,7 @@
                                         <li>
                                             <span>Total:</span>
                                             @if(session()->has('coupon'))
-                                                <span>${{filter_var(\Gloudemans\Shoppingcart\Facades\Cart::subtotal(),FILTER_SANITIZE_NUMBER_INT)}}</span>
+                                                <span>${{number_format((float) str_ireplace(',','',\Gloudemans\Shoppingcart\Facades\Cart::subtotal())-\Illuminate\Support\Facades\Session::get('coupon')['value'],2)}}</span>
 {{--                                                <span>${{session('coupon')['value']}}</span>--}}
                                             @else
                                                 <span>${{\Gloudemans\Shoppingcart\Facades\Cart::subtotal()}}</span>
@@ -282,15 +282,15 @@
                                 </div>
                                 <div class="cart-box d-flex">
                                     <a href="{{route('cart')}}" class="btn btn-success btn-sm col-md-6">Cart</a>
-                                    <a href="checkout-1.html" class="btn btn-primary btn-sm">Checkout</a>
+                                    <a href="{{route('checkout1')}}" class="btn btn-primary btn-sm">Checkout</a>
                                 </div>
                             </div>
-                            @else
-                                <div class="cart--btn">
-                                    <i class="icofont-cart"></i>
-                                    <span class="cart_quantity">0</span>
-                                </div>
-                            @endauth
+{{--                            @else--}}
+{{--                                <div class="cart--btn">--}}
+{{--                                    <i class="icofont-cart"></i>--}}
+{{--                                    <span class="cart_quantity">0</span>--}}
+{{--                                </div>--}}
+{{--                            @endauth--}}
                         </div>
 
                         <!-- Account -->

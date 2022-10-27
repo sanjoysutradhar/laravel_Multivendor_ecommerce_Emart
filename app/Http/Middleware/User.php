@@ -22,6 +22,6 @@ class User
         else{
             return $next($request);
         }
-       
+
     }
 }

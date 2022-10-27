@@ -299,7 +299,6 @@
         $(document).on('click','.add_to_wishlist_login',function () {
             alert("You should login first!");
         })
-
     </script>
 @endsection
 

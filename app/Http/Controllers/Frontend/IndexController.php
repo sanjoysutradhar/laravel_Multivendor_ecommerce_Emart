@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Testing\Fluent\Concerns\Has;
 
 class IndexController extends Controller
@@ -105,6 +106,7 @@ class IndexController extends Controller
 
     //user auth
     public function UserAuth(){
+        Session::put('url.intended',URL::previous());
         return view('frontend.auth.auth');
     }
 
@@ -114,7 +116,7 @@ class IndexController extends Controller
             'email'=>'email|required|exists:users,email',
             'password'=>'required|min:4'
         ]);
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'username'=>'admin' ,'status'=>'active'])){
+        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'role'=>'admin','status'=>'active'])){
             Session::put('admin',$request->email);
             if(Session::get('url.intended')){
                 return Redirect::to(Session::get('url.intended'));
@@ -123,7 +125,7 @@ class IndexController extends Controller
                 return redirect()->route('home')->with('success', 'Successfully logged in');
             }
         }
-        elseif(Auth::attempt(['email'=>$request->email, 'password'=>$request->password,'status'=>'active'])){
+        elseif(Auth::attempt(['email'=>$request->email, 'password'=>$request->password,'role'=>'customer','status'=>'active'])){
             Session::put('user',$request->email);
 
             if(Session::get('url.intended')){
@@ -169,7 +171,8 @@ class IndexController extends Controller
     public function LogoutSubmit(Request $request){
         Session::forget('user');
         Auth::logout();
-        return redirect()->route('user.home')->with('success','you have been logged out');
+        return Redirect::to(Session::get('url.intended'))->with('success','you have been logged out');
+//        return redirect()->route('user.home')->with('success','you have been logged out');
     }
 //    public function userLogout(Request $request){
 //        auth()->logout();
