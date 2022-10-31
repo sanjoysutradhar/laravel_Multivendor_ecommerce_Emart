@@ -10,7 +10,7 @@
                     <th scope="col">Product</th>
                     <th scope="col">Unit Price</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Total</th>
+                    <th scope="col  ">Total</th>
                 </tr>
                 </thead>
                 <tbody>

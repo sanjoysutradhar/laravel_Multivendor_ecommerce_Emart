@@ -29,7 +29,7 @@ return new class extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone');
             $table->string('country');
             $table->string('address');
@@ -40,7 +40,7 @@ return new class extends Migration
 
             $table->string('shipping_first_name');
             $table->string('shipping_last_name');
-            $table->string('shipping_email')->unique();
+            $table->string('shipping_email');
             $table->string('shipping_phone');
             $table->string('shipping_country');
             $table->string('shipping_address');
