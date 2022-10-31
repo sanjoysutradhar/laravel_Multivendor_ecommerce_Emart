@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\ShippingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -67,6 +68,11 @@ Route::post('wishlist/delete',[WishlistController::class,'wishlistDelete'])->nam
 
 // checkout Controller
  Route::get("checkout1/",[CheckoutController::class,'checkout1'])->name('checkout1')->middleware('user');
+ Route::post("checkout-first/",[CheckoutController::class,'checkout1Store'])->name('checkout1.store');
+ Route::post("checkout-second/",[CheckoutController::class,'checkout2Store'])->name('checkout2.store');
+ Route::post("checkout-third/",[CheckoutController::class,'checkout3Store'])->name('checkout3.store');
+ Route::get("checkout-store",[CheckoutController::class,'checkoutStore'])->name('checkout.store');
+ Route::get("checkout-complete/{order}",[CheckoutController::class,'checkoutComplete'])->name('checkout.complete');
 //Frontend end section
 
 
@@ -103,6 +109,10 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
     //Coupon section
     Route::resource('/coupon',CouponContoller::class);
     Route::post('/coupon_status',[CouponContoller::class,'coupon_status'])->name('coupon.status');
+
+    //shipping section
+    Route::resource('/shipping',ShippingController::class);
+    Route::post('/shipping_status',[ShippingController::class,'shipping_status'])->name('shipping.status');
 
 
 });

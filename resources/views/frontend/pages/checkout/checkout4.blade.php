@@ -5,10 +5,10 @@
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
-                    <h5>Cart</h5>
+                    <h5>Checkout</h5>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('user.home')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Cart</li>
+                        <li class="breadcrumb-item active">Checkout</li>
                     </ol>
                 </div>
             </div>
@@ -16,30 +16,29 @@
     </div>
     <!-- Breadcumb Area -->
 
-    <!-- Cart Area -->
-    <div class="cart_area section_padding_100_70 clearfix" >
-        <div class="container">
-            <div class="row justify-content-between" id="cart_list">
-                @include('frontend.layouts._cart-lists')
+    <!-- Checkout Step Area -->
+    <div class="checkout_steps_area">
+        <a class="complated" href="{{route('checkout1')}}"><i class="icofont-check-circled"></i> Billing</a>
+        <a class="complated" href="checkout-3.html"><i class="icofont-check-circled"></i> Shipping</a>
+        <a class="complated" href="checkout-4.html"><i class="icofont-check-circled"></i> Payment</a>
+        <a class="active" href="checkout-5.html"><i class="icofont-check-circled"></i> Review</a>
+    </div>
+    <!-- Checkout Step Area -->
 
+    <!-- Checkout Area -->
+    <div class="checkout_area section_padding_100">
+        <div class="container">
+            <div class="row" id="cart_list">
+                @include('frontend.layouts._checkout4')
             </div>
         </div>
     </div>
-    <!-- Cart Area End -->
-
+    <!-- Checkout Area End -->
 @endsection
-@section('scripts')
-{{--    //coupon add--}}
-    <script>
-    $(document).on('click','.coupon-btn',function (e) {
-        e.preventDefault();
-        var code=$('input[name=code]').val();
-        $('.coupon-btn').html('<i class="fa-solid fa-spinner"></i> Applying...');
-        $('#coupon-form').submit();
 
-    })
-</script>
-{{--?--}}
+@section('scripts')
+
+    {{--DELETE?--}}
     <script>
         $(document).on('click','#cart_delete',function(){
             var cart_id=$(this).data('id');
@@ -131,21 +130,5 @@
             })
         }
     </script>
-    <script>
-        $(document).on('click','.procees_to_checkout',function (e) {
-            e.preventDefault();
-            var count= $(this).data('value');
-            if(count>0){
-                location.replace("{{ route('checkout1')}}");
-            }
-            else{
-                swal({
-                    title: "OPS!",
-                    text: "Add Some Products",
-                    icon: "warning",
-                    button: "OK!",
-                });
-            }
-        })
-    </script>
 @endsection
+

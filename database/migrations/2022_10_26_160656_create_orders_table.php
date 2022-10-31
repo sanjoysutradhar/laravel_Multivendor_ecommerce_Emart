@@ -17,10 +17,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('order_number','10')->unique();
-            $table->unsignedBigInteger('product_id');
             $table->float('sub_total')->default(0);
             $table->float('total_amount')->default(0);
             $table->float('coupon')->default(0)->nullable();
+            $table->string('payment_method')->default('COD');
+            $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
+            $table->enum('condition',['pending','processing','complete','cancel'])->default('pending');
             $table->float('delivery_charge')->default(0)->nullable();
             $table->integer('quantity')->default(0);
 
