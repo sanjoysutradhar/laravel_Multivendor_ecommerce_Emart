@@ -8,13 +8,13 @@
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Category</h2>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{route('admin')}}"><i class="icon-home"></i></a></li>                      
+                        <li class="breadcrumb-item"><a href="{{route('admin')}}"><i class="icon-home"></i></a></li>
                     </ul>
                     <p class="float-right">Total Category :{{\App\Models\Category::count()}}</p>
-                </div>            
+                </div>
             </div>
         </div>
-        
+
         <div class="row clearfix">
             <div class="col-lg-12">
                 @include('backend.layouts.notification')
@@ -35,7 +35,7 @@
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
-                                </thead>                            
+                                </thead>
                                 <tbody>
                                     @foreach ($categories as $item)
                                     <tr>
@@ -44,12 +44,23 @@
                                         {{-- <td>
                                             {{$item->summary}}
                                         </td> --}}
-                                        <td ><img src="{{$item->photo}}" alt="category image" height="100px" width="80px"></td>
+                                        @php
+                                            $photos=explode(',',$item->photo);
+                                        @endphp
+                                        <td >
+                                        @if(isset($photos[0]))
+                                            <img class="normal_img" src="{{$photos[0]}}" alt="{{$item->title}}" height="100px" width="80px">
+                                        @endif
+{{--                                        @if(isset($photos[1]))--}}
+{{--                                            <img class="hover_img" src="{{$photos[1]}}" height="100px" width="80px" alt="{{$item->title}}">--}}
+{{--                                        @endif--}}
+{{--                                        <img src="{{$item->photo}}" alt="category image" height="100px" width="80px">--}}
+                                        </td>
                                         <td>{{$item->is_parent== 0 ? 'No': 'Yes'}}</td>
                                         <td>{{$item->parent_id}}</td>
                                         <td>
-                                            <input type="checkbox" name="toogle" value="{{$item->id}}" 
-                                            data-toggle="switchbutton" {{$item->status==='active' ? 'checked' : '' }} 
+                                            <input type="checkbox" name="toogle" value="{{$item->id}}"
+                                            data-toggle="switchbutton" {{$item->status==='active' ? 'checked' : '' }}
                                             data-onlabel="active" data-offlabel="inactive"
                                              data-size="sm" data-onstyle="success" data-offstyle="danger">
                                         </td>
@@ -63,18 +74,18 @@
                                                 </button>
                                                 {{-- <a href="" data-toggle="tooltip" title="delete" data-id="{{$item->id}}" class="dltBtn btn btn-sm btn-outline-danger" data-placement="bottom"><i class="fas fa-trash-alt"></i></a> --}}
                                             </form>
-                                            
-                                            
+
+
                                         </td>
-                                        
+
                                     </tr>
                                     @endforeach
-                                    
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>                   
+                </div>
             </div>
         </div>
 
@@ -132,7 +143,7 @@
                 }
                 else{
                     alert('please try again');
-                } 
+                }
             }
         })
     });

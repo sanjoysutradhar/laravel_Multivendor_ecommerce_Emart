@@ -152,12 +152,12 @@ class CheckoutController extends Controller
         $order['shipping_state']=Session::get('checkout')['shipping_state'];
         $order['shipping_postcode']=Session::get('checkout')['shipping_postcode'];
 
-        Mail::to($order['email'])->bcc($order['shipping_email'])->cc('shanjoy.swe@gmail.com')->send(new OrderMail($order));
+//        Mail::to($order['email'])->bcc($order['shipping_email'])->cc('shanjoy.swe@gmail.com')->send(new OrderMail($order));
 //        dd('Mail is sent');
 
         $status=$order->save();
         if($status){
-
+            Mail::to($order['email'])->bcc($order['shipping_email'])->cc('shanjoy.swe@gmail.com')->send(new OrderMail($order));
             Cart::instance('shopping')->destroy();
             Session::forget('coupon');
             Session::forget('checkout');

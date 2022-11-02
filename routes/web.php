@@ -73,7 +73,14 @@ Route::post('wishlist/delete',[WishlistController::class,'wishlistDelete'])->nam
  Route::post("checkout-third/",[CheckoutController::class,'checkout3Store'])->name('checkout3.store');
  Route::get("checkout-store",[CheckoutController::class,'checkoutStore'])->name('checkout.store');
  Route::get("checkout-complete/{order}",[CheckoutController::class,'checkoutComplete'])->name('checkout.complete');
-//Frontend end section
+
+ //shop
+Route::get('shop/',[IndexController::class,'shop'])->name('shop');
+Route::post('shop-filter/',[IndexController::class,'shopFilter'])->name('shop.filter');
+
+
+
+ //Frontend end section
 
 
 

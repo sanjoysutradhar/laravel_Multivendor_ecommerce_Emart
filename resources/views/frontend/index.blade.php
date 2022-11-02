@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-5 col-md-4">
                                 <div class="welcome_slide_image">
-                                    <img src="frontend/img/bg-img/slide-1.png" alt="" data-animation="bounceInUp" data-delay="500ms">
+{{--                                    <img src="frontend/assets/img/bg-img/slide-1.png" alt="" data-animation="bounceInUp" data-delay="500ms">--}}
                                     <div class="discount_badge" data-animation="bounceInDown" data-delay="1.2s">
                                         <span>30%<br>OFF</span>
                                     </div>
@@ -52,7 +52,17 @@
                 <div class="col-12 col-md-4">
                     <div class="single_catagory_area mt-50">
                         <a href="{{route('product.category',$item->slug)}}">
-                            <img src="{{$item->photo}}" alt="{{$item->title}}">
+                        @php
+                            $photos=explode(',',$item->photo);
+                        @endphp
+                        <!-- Product Image -->
+                        @if(isset($photos[0]))
+                            <img class="normal_img" src="{{$photos[0]}}" alt="{{$item->title}}">
+                        @endif
+{{--                        @if(isset($photos[1]))--}}
+{{--                            <img class="hover_img" src="{{$photos[1]}}" alt="">--}}
+{{--                        @endif--}}
+{{--                        <img src="{{$item->photo}}" alt="{{$item->title}}">--}}
                         </a>
                     </div>
                 </div>
@@ -168,14 +178,14 @@
                                 <!-- Product Image -->
                                 <?php $photos=explode(',',$item->photo); ?>
 
-                                 @if(isset($photos[0]))   
+                                 @if(isset($photos[0]))
                                 <img class="normal_img" src="{{$photos[0]}}" alt="{{$item->title}}">
                                 @endif
-                                @if(isset($photos[1]))   
+                                @if(isset($photos[1]))
                                 <img class="hover_img" src="{{$photos[1]}}" alt="">
                                 @endif
-                                
-                                    
+
+
                                 <!-- Product Badge -->
                                 <div class="product_badge">
                                     <span>New</span>
@@ -183,7 +193,7 @@
 
                                 <!-- Wishlist -->
                                 <div class="product_wishlist">
-                                    <a href="wishlist.html"><i class="icofont-heart"></i></a>
+                                    <a href="javascript:void(0);" class="add_to_wishlist" data-quantity="1" data-product-id="{{$item->id}}" id="add_to_wishlist_{{$item->id}}"><i class="icofont-heart"></i></a>
                                 </div>
 
                                 <!-- Compare -->
@@ -196,7 +206,7 @@
                             <div class="product_description">
                                 <!-- Add to cart -->
                                 <div class="product_add_to_cart">
-                                    <a href="#"><i class="icofont-shopping-cart"></i> Add to Cart</a>
+                                    <a href="#" data-quantity="1" data-product-id="{{$item->id}}" class="add_to_cart"><i class="icofont-shopping-cart"></i> Add to Cart</a>
                                 </div>
 
                                 <!-- Quick View -->
@@ -1529,3 +1539,113 @@
     <!-- Special Featured Area -->
 
 @endsection
+
+@section('scripts')
+    {{--    add to wishlist--}}
+    <script>
+        $(document).on('click','.add_to_wishlist',function(){
+            var product_id=$(this).data('product-id');
+            var product_qty=$(this).data('quantity');
+            // alert(product_qut);
+            var token="{{csrf_token()}}";
+            var path="{{route('wishlist.store')}}";
+            $.ajax({
+                url:path,
+                type:"POST",
+                dataType: "JSON",
+                data:{
+                    product_id:product_id,
+                    product_qty:product_qty,
+                    _token:token,
+                },
+                beforeSend:function () {
+                    // $('.add_to_cart' + product_id).html("<i class='fa fa-spinner fa-spin'></i>");
+                    // console.log($(".add_to_cart").html("<i class='fa fa-spinner fa-spin'></i>"));
+                    $('.add_to_wishlist').html("<i class='fa fa-spinner fa-spin'></i>");
+                },
+                complete:function () {
+                    $('.add_to_wishlist').html("<i class='icofont-heart'></i>");
+                },
+                success:function (data) {
+                    console.log(data);
+                    if(data['status']){
+                        $('body #header-ajax').html(data['header']);
+                        // $('body #wishlist_count').html(data['wishlist_count']);
+                        swal({
+                            title: "Good job!",
+                            text: data['message'],
+                            icon: "success",
+                            button: "OK!",
+                        });
+                    }
+                    else if(data['present']){
+                        swal({
+                            title: "Opps!",
+                            text: data['message'],
+                            icon: "warning",
+                            button: "OK!",
+                        });
+                    }
+                    else{
+                        swal({
+                            title: "Sorry!",
+                            text: "You  can't add that product",
+                            icon: "Error",
+                            button: "OK!",
+                        });
+                    }
+                },
+                error:function (err) {
+                    console.log(err);
+                }
+            });
+        });
+    </script>
+
+    <!-- Add to cart -->
+    <script>
+        $(document).on('click','.add_to_cart',function(){
+            var product_id=$(this).data('product-id');
+            var product_qty=$(this).data('quantity');
+            // alert(product_qut);
+            var token="{{csrf_token()}}";
+            var path="{{route('cart.store')}}";
+            $.ajax({
+                url:path,
+                type:"POST",
+                dataType: "JSON",
+                data:{
+                    product_id:product_id,
+                    product_qty:product_qty,
+                    _token:token,
+                },
+                beforeSend:function () {
+                    // $('.add_to_cart' + product_id).html("<i class='fa fa-spinner fa-spin'></i>");
+                    // console.log($(".add_to_cart").html("<i class='fa fa-spinner fa-spin'></i>"));
+                    $('.add_to_cart').html("<i class='fa fa-spinner fa-spin'></i>Loading...");
+                },
+                complete:function () {
+                    $('.add_to_cart').html("<i class='icofont-shopping-cart'></i>Add to Cart");
+                },
+                success:function (data) {
+                    console.log(data);
+                    if(data['status']){
+                        $('body #header-ajax').html(data['header']);
+                        $('body #cart-counter').html(data['cart_count']);
+                        swal({
+                            title: "Good job!",
+                            text: data['message'],
+                            icon: "success",
+                            button: "OK!",
+                        });
+                    }
+                },
+                error:function (err) {
+                    console.log(err);
+                }
+            });
+        });
+    </script>
+@endsection
+
+

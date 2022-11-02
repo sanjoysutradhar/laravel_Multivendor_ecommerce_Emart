@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Testing\Fluent\Concerns\Has;
+use function Spatie\Ignition\Config\toArray;
 
 class IndexController extends Controller
 {
@@ -291,6 +292,38 @@ class IndexController extends Controller
 
         }
 
+    }
+
+    //Shop
+    public function shop(Request $request){
+        $products=Product::query();
+
+        if(!empty($_GET['category'])){
+            $slugs=explode(',',$_GET['category']);
+            $cat_ids=Category::select('id')->whereIn('slug',$slugs)->pluck('id')->toArray();
+//            return $cat_ids;
+            $products=$products->whereIn('cat_id',$cat_ids)->paginate(9);
+        }else{
+            $products=Product::where('status','active')->paginate(9);
+        }
+        $categories=Category::where(['status'=>'active','is_parent'=>1])->with('products')->orderBy('title','ASC')->get();
+        return view('frontend.pages.product.shop',compact(['products','categories']));
+    }
+
+    public function shopFilter(Request $request){
+        $data=$request->all();
+//        dd($data);
+        $catUrl='';
+        if(!empty($data['category'])){
+            foreach ($data['category'] as $category) {
+                if (empty($catUrl)) {
+                    $catUrl .= '&category=' . $category;
+                }else{
+                    $catUrl .=','.$category;
+                }
+            }
+        }
+        return \redirect()->route('shop',$catUrl);
     }
 }
 
