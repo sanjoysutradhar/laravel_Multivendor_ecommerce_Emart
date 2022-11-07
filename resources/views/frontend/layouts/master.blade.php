@@ -35,39 +35,60 @@
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     @include('frontend.layouts.script')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    @yield('scripts')
     <script>
-        $(document).on('click','.cart_delete',function(){
-            var cart_id=$(this).data('id');
-            var token="{{csrf_token()}}";
-            var path="{{route('cart.delete')}}";
-            $.ajax({
-                url:path,
-                type:"POST",
-                dataType: "JSON",
-                data:{
-                    cart_id:cart_id,
-                    _token:token,
-                },
-                success:function (data) {
-                    console.log(data);
-
-                    if(data['status']){
-                        $('body #header-ajax').html(data['header']);
-                        swal({
-                            title: "Good job!",
-                            text: data['message'],
-                            icon: "success",
-                            button: "OK!",
-                        });
-                    }
-                },
-                error:function (err) {
-                    console.log(err);
-                }
-            });
+        $(document).ready(function(){
+           var path='{{route('autoSearch')}}';
+           $('#search-text').autocomplete({
+               source:function (request,response){
+                   $.ajax({
+                       url:path,
+                       dataType:"JSON",
+                       data:{
+                           term:request.term
+                       },
+                       success:function (data){
+                           console.log(data);
+                           response(data);
+                       }
+                   });
+            },
+               minLength:1,
+           });
         });
     </script>
+{{--    <script>--}}
+{{--        $(document).on('click','.cart_delete',function(){--}}
+{{--            var cart_id=$(this).data('id');--}}
+{{--            var token="{{csrf_token()}}";--}}
+{{--            var path="{{route('cart.delete')}}";--}}
+{{--            $.ajax({--}}
+{{--                url:path,--}}
+{{--                type:"POST",--}}
+{{--                dataType: "JSON",--}}
+{{--                data:{--}}
+{{--                    cart_id:cart_id,--}}
+{{--                    _token:token,--}}
+{{--                },--}}
+{{--                success:function (data) {--}}
+{{--                    console.log(data);--}}
+
+{{--                    if(data['status']){--}}
+{{--                        $('body #header-ajax').html(data['header']);--}}
+{{--                        swal({--}}
+{{--                            title: "Good job!",--}}
+{{--                            text: data['message'],--}}
+{{--                            icon: "success",--}}
+{{--                            button: "OK!",--}}
+{{--                        });--}}
+{{--                    }--}}
+{{--                },--}}
+{{--                error:function (err) {--}}
+{{--                    console.log(err);--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 </body>
 
 </html>

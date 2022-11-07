@@ -78,7 +78,9 @@ Route::post('wishlist/delete',[WishlistController::class,'wishlistDelete'])->nam
 Route::get('shop/',[IndexController::class,'shop'])->name('shop');
 Route::post('shop-filter/',[IndexController::class,'shopFilter'])->name('shop.filter');
 
-
+//search
+Route::get('autoSearch/',[IndexController::class,'autoSearch'])->name('autoSearch');
+Route::post('shop/search/',[IndexController::class,'search'])->name('search');
 
  //Frontend end section
 

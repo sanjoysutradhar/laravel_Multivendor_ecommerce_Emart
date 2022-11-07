@@ -1,5 +1,8 @@
 
 
+{{--    Jquery UI autocomplete--}}
+{{--    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--}}
+
     <script src="{{asset('frontend/assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/popper.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script>
@@ -15,15 +18,14 @@
     <script src="{{asset('frontend/assets/js/jarallax-video.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/jquery.magnific-popup.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/jquery.nice-select.min.js')}}"></script>
+
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{asset('frontend/assets/js/wow.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/active.js')}}"></script>
-
-
     <script>
         setTimeout(function(){
             $('#alert').slideUp()
-        }, 4000);
+        }, 2000);
     </script>
 
-@yield('scripts')

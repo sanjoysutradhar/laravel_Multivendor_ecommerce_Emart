@@ -80,57 +80,57 @@
                                 </li>
                                 <li><a href="{{route('shop')}}">Shop</a>
                                     <ul class="dropdown">
-{{--                                        <li><a href="#">Shop Grid</a>--}}
-{{--                                            <ul class="dropdown">--}}
-{{--                                                <li><a href="shop-grid-left-sidebar.html">Shop Grid Left Sidebar</a>--}}
-{{--                                                </li>--}}
-{{--                                                <li><a href="shop-grid-right-sidebar.html">Shop Grid Right--}}
-{{--                                                        Sidebar</a></li>--}}
-{{--                                                <li><a href="shop-grid-top-sidebar.html">Shop Grid Top Sidebar</a>--}}
-{{--                                                </li>--}}
-{{--                                                <li><a href="shop-grid-no-sidebar.html">Shop Grid No Sidebar</a>--}}
-{{--                                                </li>--}}
-{{--                                            </ul>--}}
-{{--                                        </li>--}}
-{{--                                        <li><a href="#">Shop List</a>--}}
-{{--                                            <ul class="dropdown">--}}
-{{--                                                <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a>--}}
-{{--                                                </li>--}}
-{{--                                                <li><a href="shop-list-right-sidebar.html">Shop List Right--}}
-{{--                                                        Sidebar</a></li>--}}
-{{--                                                <li><a href="shop-list-top-sidebar.html">Shop List Top Sidebar</a>--}}
-{{--                                                </li>--}}
-{{--                                                <li><a href="shop-list-no-sidebar.html">Shop List No Sidebar</a>--}}
-{{--                                                </li>--}}
-{{--                                            </ul>--}}
-{{--                                        </li>--}}
-{{--                                        --}}{{-- cart --}}
-{{--                                        <li><a href="product-details.html">Single Product</a></li>--}}
-{{--                                        <li><a href="cart.html">Cart</a></li>--}}
-{{--                                        <li><a href="#">Checkout</a>--}}
-{{--                                            <ul class="dropdown">--}}
-{{--                                                <li><a href="checkout-1.html">Login</a></li>--}}
-{{--                                                <li><a href="checkout-2.html">Billing</a></li>--}}
-{{--                                                <li><a href="checkout-3.html">Shipping Method</a></li>--}}
-{{--                                                <li><a href="checkout-4.html">Payment Method</a></li>--}}
-{{--                                                <li><a href="checkout-5.html">Review</a></li>--}}
-{{--                                                <li><a href="checkout-complate.html">Complate</a></li>--}}
-{{--                                            </ul>--}}
-{{--                                        </li>--}}
-{{--                                        --}}{{-- Account --}}
-{{--                                        <li><a href="#">Account Page</a>--}}
-{{--                                            <ul class="dropdown">--}}
-{{--                                                <li><a href="my-account.html">- Dashboard</a></li>--}}
-{{--                                                <li><a href="order-list.html">- Orders</a></li>--}}
-{{--                                                <li><a href="downloads.html">- Downloads</a></li>--}}
-{{--                                                <li><a href="addresses.html">- Addresses</a></li>--}}
-{{--                                                <li><a href="account-details.html">- Account Details</a></li>--}}
-{{--                                            </ul>--}}
-{{--                                        </li>--}}
+                                        <li><a href="#">Shop Grid</a>
+                                            <ul class="dropdown">
+                                                <li><a href="shop-grid-left-sidebar.html">Shop Grid Left Sidebar</a>
+                                                </li>
+                                                <li><a href="shop-grid-right-sidebar.html">Shop Grid Right
+                                                        Sidebar</a></li>
+                                                <li><a href="shop-grid-top-sidebar.html">Shop Grid Top Sidebar</a>
+                                                </li>
+                                                <li><a href="shop-grid-no-sidebar.html">Shop Grid No Sidebar</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Shop List</a>
+                                            <ul class="dropdown">
+                                                <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a>
+                                                </li>
+                                                <li><a href="shop-list-right-sidebar.html">Shop List Right
+                                                        Sidebar</a></li>
+                                                <li><a href="shop-list-top-sidebar.html">Shop List Top Sidebar</a>
+                                                </li>
+                                                <li><a href="shop-list-no-sidebar.html">Shop List No Sidebar</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                         cart
+                                        <li><a href="product-details.html">Single Product</a></li>
+                                        <li><a href="cart.html">Cart</a></li>
+                                        <li><a href="#">Checkout</a>
+                                            <ul class="dropdown">
+                                                <li><a href="checkout-1.html">Login</a></li>
+                                                <li><a href="checkout-2.html">Billing</a></li>
+                                                <li><a href="checkout-3.html">Shipping Method</a></li>
+                                                <li><a href="checkout-4.html">Payment Method</a></li>
+                                                <li><a href="checkout-5.html">Review</a></li>
+                                                <li><a href="checkout-complate.html">Complate</a></li>
+                                            </ul>
+                                        </li>
+                                         Account
+                                        <li><a href="#">Account Page</a>
+                                            <ul class="dropdown">
+                                                <li><a href="my-account.html">- Dashboard</a></li>
+                                                <li><a href="order-list.html">- Orders</a></li>
+                                                <li><a href="downloads.html">- Downloads</a></li>
+                                                <li><a href="addresses.html">- Addresses</a></li>
+                                                <li><a href="account-details.html">- Account Details</a></li>
+                                            </ul>
+                                        </li>
 
-{{--                                        <li><a href="wishlist.html">Wishlist</a></li>--}}
+                                        <li><a href="wishlist.html">Wishlist</a></li>
 
-{{--                                        <li><a href="compare.html">Compare</a></li>--}}
+                                        <li><a href="compare.html">Compare</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">Pages</a>
@@ -210,10 +210,13 @@
                         <div class="search-area">
                             <div class="search-btn"><i class="icofont-search"></i></div>
                             <!-- Form -->
-                            <div class="search-form">
-                                <input type="search" class="form-control" placeholder="Search">
-                                <input type="submit" class="d-none" value="Send">
-                            </div>
+                            <form action="{{route('search')}}" method="POST">
+                                @csrf
+                                <div class="search-form d-flex">
+                                    <input type="search" id="search-text" class="form-control p-0" name="search" placeholder="Search">
+                                    <button type="submit" class="btn btn-primary" value="Send">submit</button>
+                                </div>
+                            </form>
                         </div>
 
                         <!-- Wishlist -->
@@ -339,6 +342,7 @@
             </div>
         </div>
     </div>
+
 
 
 
