@@ -81,8 +81,37 @@
 
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
+                                        <label for="">Size guide</label>
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                              <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                              </a>
+                                            </span>
+                                            <input id="thumbnail1" class="form-control" type="text" name="size_guide">
+                                        </div>
+                                        <div id="holder1" style="margin-top:15px;max-height:100px;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
                                         <label for="">Description</label>
-                                        <textarea id="description" name="description" class="form-control" placeholder="Write some text....">{{old('description')}}</textarea>
+                                        <textarea id="description" name="description" class="description form-control" placeholder="Write some text....">{{old('description')}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Additional Information</label>
+                                        <textarea id="description" name="additional_info" class="description form-control" placeholder="Write some text....">{{old('additional_info')}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Return cancellation</label>
+                                        <textarea id="description" name="return_cancellation" class="description form-control" placeholder="Write some text....">{{old('return_cancellation')}}</textarea>
                                     </div>
                                 </div>
 
@@ -187,11 +216,11 @@
 @section('scripts')
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
-    $('#lfm').filemanager('image');
+    $('#lfm,#lfm1').filemanager('image');
 </script>
 <script>
     $(document).ready(function() {
-        $('#description').summernote();
+        $('.description').summernote();
     });
 </script>
 <script>

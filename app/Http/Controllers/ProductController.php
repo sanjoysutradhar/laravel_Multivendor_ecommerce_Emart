@@ -54,15 +54,17 @@ class ProductController extends Controller
         $this->validate($request,[
             'title'=>'string|required',
             'photo'=>'required',
+            'size_guide'=>'nullable',
             'summary'=>'string|nullable',
             'description'=>'string|nullable',
+            'additional_info'=>'string|nullable',
+            'return_cancellation'=>'string|nullable',
             'stock'=>'nullable|numeric',
             'price'=>'nullable|numeric',
             'discount'=>'nullable|numeric',
             'cat_id'=>'required|exists:categories,id',
             'child_cat_id'=>'nullable|exists:categories,id',
-            'cat_id'=>'required',
-            'size'=>'nullable',
+            'size'=>'required',
             'condition'=>'nullable',
             'status'=>'nullable|in:active,inactive'
         ]);
@@ -173,6 +175,9 @@ class ProductController extends Controller
         $this->validate($request,[
             'title'=>'string|required',
             'photo'=>'required',
+            'size_guide'=>'nullable',
+            'additional_info'=>'string|nullable',
+            'return_cancellation'=>'string|nullable',
             'summary'=>'string|nullable',
             'description'=>'string|nullable',
             'stock'=>'nullable|numeric',
@@ -180,8 +185,7 @@ class ProductController extends Controller
             'discount'=>'nullable|numeric',
             'cat_id'=>'required|exists:categories,id',
             'child_cat_id'=>'nullable|exists:categories,id',
-            'cat_id'=>'required',
-            'size'=>'nullable',
+            'size'=>'required',
             'condition'=>'nullable',
             'status'=>'nullable|in:active,inactive'
         ]);

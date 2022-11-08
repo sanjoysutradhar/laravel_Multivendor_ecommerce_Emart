@@ -114,8 +114,8 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                
-                              
+
+
                             </div>
 
                             <!-- Carosel Indicators -->
@@ -124,10 +124,10 @@
                                     $photos=explode(',',$product->photo)
                                 @endphp
                                 @foreach ($photos as $key=>$photo)
-                                <li class="{{$key==0 ? 'active': '' }}" data-target="#product_details_slider" data-slide-to="{{$key}}" style="background-image: url({{$photo}});">
-                                </li>
+                                    <li class="{{$key==0 ? 'active': '' }}" data-target="#product_details_slider" data-slide-to="{{$key}}" style="background-image: url({{$photo}});">
+                                    </li>
                                 @endforeach
-                                
+
                             </ol>
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                         <!-- Overview -->
                         <div class="short_overview mb-4">
                             <h6>Overview</h6>
-                            <p>{{$product->summary}}</p>
+                            <p>{!! html_entity_decode($product->summary) !!}</p>
                         </div>
 
                         <!-- Color Option -->
@@ -183,23 +183,30 @@
                         <!-- Size Option -->
                         <div class="widget p-0 size mb-3">
                             <h6 class="widget-title">Size</h6>
+                            @php
+                                $productAttribute= \App\Models\ProductAttribute::where('product_id',$product->id)->get();
+                            @endphp
                             <div class="widget-desc">
-                                <ul>
-                                    <li><a href="#">S</a></li>
-                                    <li><a href="#">M</a></li>
-                                    <li><a href="#">L</a></li>
-                                    <li><a href="#">XL</a></li>
-                                </ul>
+{{--                                <ul>--}}
+{{--                                    @foreach($productAttribute as $attribute)--}}
+{{--                                        <li><a href="#">{{$attribute->size}}</a></li>--}}
+{{--                                    @endforeach--}}
+                                    <select name="size" id="" class="form-control-sm mb-5 pt-0">
+                                        @foreach($productAttribute as $attribute)
+                                        <option value="{{$attribute->size}}">{{$attribute->size}}</option>
+                                        @endforeach
+                                    </select>
+{{--                                </ul>--}}
+                            <!-- Add to Cart Form -->
+                                <form class="cart clearfix my-5 d-flex flex-wrap align-items-center" method="post">
+                                    {{--                                <div class="quantity">--}}
+                                    {{--                                    <input type="number" class="qty-text form-control" id="qty2" step="1" min="1" max="12" name="quantity" value="1">--}}
+                                    {{--                                </div>--}}
+                                    <button type="submit" name="addtocart" value="5" class="btn btn-primary mt-1 mt-md-0 ml-1 ml-md-3">Add to cart</button>
+                                </form>
                             </div>
-                        </div>
 
-                        <!-- Add to Cart Form -->
-                        <form class="cart clearfix my-5 d-flex flex-wrap align-items-center" method="post">
-                            <div class="quantity">
-                                <input type="number" class="qty-text form-control" id="qty2" step="1" min="1" max="12" name="quantity" value="1">
-                            </div>
-                            <button type="submit" name="addtocart" value="5" class="btn btn-primary mt-1 mt-md-0 ml-1 ml-md-3">Add to cart</button>
-                        </form>
+                        </div>
 
                         <!-- Others Info -->
                         <div class="others_info_area mb-3 d-flex flex-wrap">
@@ -211,14 +218,17 @@
                         <!-- Size Guide -->
                         <div class="sizeguide">
                             <h6>Size Guide</h6>
+                            @php
+                                $size_guide=explode(',',$product->size_guide)
+                            @endphp
+
                             <div class="size_guide_thumb d-flex">
-                                <a class="size_guide_img" href="img/bg-img/size-1.png" style="background-image: url(img/bg-img/size-1.png);">
+                                @foreach($size_guide as $sig)
+                                <a class="size_guide_img" href="{{$sig}}" style="background-image: url({{$sig}});">
                                 </a>
-                                <a class="size_guide_img" href="img/bg-img/size-2.png" style="background-image: url(img/bg-img/size-2.png);">
-                                </a>
-                                <a class="size_guide_img" href="img/bg-img/size-3.png" style="background-image: url(img/bg-img/size-3.png);">
-                                </a>
+                                @endforeach
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -249,7 +259,7 @@
                             <div role="tabpanel" class="tab-pane fade show active" id="description">
                                 <div class="description_area">
                                     <h5>Description</h5>
-                                    <p>{{$product->description}}</p>
+                                    <p>{!! html_entity_decode($product->description) !!}</p>
                                 </div>
                             </div>
 
@@ -345,41 +355,14 @@
                             <div role="tabpanel" class="tab-pane fade" id="addi-info">
                                 <div class="additional_info_area">
                                     <h5>Additional Info</h5>
-                                    <p>What should I do if I receive a damaged parcel?
-                                        <br> <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit impedit similique qui, itaque delectus labore.</span></p>
-                                    <p>I have received my order but the wrong item was delivered to me.
-                                        <br> <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis quam voluptatum beatae harum tempore, ab?</span></p>
-                                    <p>Product Receipt and Acceptance Confirmation Process
-                                        <br> <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum ducimus, temporibus soluta impedit minus rerum?</span></p>
-                                    <p class="mb-0">How do I cancel my order?
-                                        <br> <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum eius eum, minima!</span></p>
+                                    <p>{!! html_entity_decode($product->additional_info) !!}</p>
                                 </div>
                             </div>
 
                             <div role="tabpanel" class="tab-pane fade" id="refund">
                                 <div class="refund_area">
                                     <h6>Return Policy</h6>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa quidem, eos eius laboriosam voluptates totam mollitia repellat rem voluptate obcaecati quas fuga similique impedit cupiditate vitae repudiandae. Rem, tenetur placeat!</p>
-
-                                    <h6>Return Criteria</h6>
-                                    <ul class="mb-30 ml-30">
-                                        <li><i class="icofont-check"></i> Package broken</li>
-                                        <li><i class="icofont-check"></i> Physical damage in the product</li>
-                                        <li><i class="icofont-check"></i> Software/hardware problem</li>
-                                        <li><i class="icofont-check"></i> Accessories missing or damaged etc.</li>
-                                    </ul>
-
-                                    <h6>Q. What should I do if I receive a damaged parcel?</h6>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit impedit similique qui, itaque delectus labore.</p>
-
-                                    <h6>Q. I have received my order but the wrong item was delivered to me.</h6>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis quam voluptatum beatae harum tempore, ab?</p>
-
-                                    <h6>Q. Product Receipt and Acceptance Confirmation Process</h6>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum ducimus, temporibus soluta impedit minus rerum?</p>
-
-                                    <h6>Q. How do I cancel my order?</h6>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum eius eum, minima!</p>
+                                    {!! html_entity_decode($product->return_cancellation) !!}
                                 </div>
                             </div>
                         </div>
@@ -413,11 +396,11 @@
                                 @php
                                     $photo=explode(',',$item->photo)
                                 @endphp
-                                
-                                    @if(isset($photo[0]))   
+
+                                    @if(isset($photo[0]))
                                     <img class="normal_img" src="{{$photo[0]}}" alt="{{$item->title}}">
                                     @endif
-                                    @if(isset($photo[1]))   
+                                    @if(isset($photo[1]))
                                     <img class="hover_img" src="{{$photo[1]}}" alt="{{$item->title}}">
                                     @endif
 
@@ -463,7 +446,7 @@
                         </div>
                         @endif
                         @endforeach
-                        
+
                     </div>
                 </div>
 

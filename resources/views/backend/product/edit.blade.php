@@ -5,20 +5,20 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-sm-12">
-                    <h2><a href="javascript:void(0);" 
+                    <h2><a href="javascript:void(0);"
                         class="btn btn-xs btn-link btn-toggle-fullwidth">
                         <i class="fa fa-arrow-left"></i></a>Edit Products</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('admin')}}">
-                            <i class="icon-home"></i></a></li>                            
+                            <i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item">Products</li>
                         <li class="breadcrumb-item active">Edit Products</li>
                     </ul>
-                </div>            
-               
+                </div>
+
             </div>
         </div>
-        
+
         <div class="row clearfix">
             <div class="col-md-12">
                 @if ($errors->any())
@@ -61,7 +61,7 @@
                                         <label for="">Summary<span class="text-danger">*</span></label>
                                         <textarea name="summary" class="form-control" id="summary" cols="2" rows="2"
                                         placeholder="Some text...">{{$product->summary}}</textarea>
-                                        
+
                                     </div>
                                 </div>
 
@@ -79,13 +79,43 @@
                                           <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                                     </div>
                                 </div>
-            
+
+                                <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="">Size guide</label>
+                                    <div class="input-group">
+                                            <span class="input-group-btn">
+                                              <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                              </a>
+                                            </span>
+                                        <input id="thumbnail1" class="form-control" type="text" name="size_guide" value="{{$product->size_guide}}">
+                                    </div>
+                                    <div id="holder1" style="margin-top:15px;max-height:100px;"></div>
+                                </div>
+                            </div>
+
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <label for="">Description</label>
-                                        <textarea id="description" name="description" class="form-control" placeholder="Write some text....">{{$product->description}}</textarea>
+                                        <textarea id="description" name="description" class="description form-control" placeholder="Write some text....">{{$product->description}}</textarea>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Additional Information</label>
+                                        <textarea id="description" name="additional_info" class="description form-control" placeholder="Write some text....">{{$product->additional_info}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Return cancellation</label>
+                                        <textarea id="description" name="return_cancellation" class="description form-control" placeholder="Write some text....">{{$product->return_cancellation}}</textarea>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
@@ -105,8 +135,8 @@
                                         <input type="number" step="any" name="price" class="form-control" value="{{$product->price}}" placeholder="price">
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12"> 
-                                    <label for="">Brand</label>                               
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label for="">Brand</label>
                                     <select name="brand_id" class="form-control show-tick">
                                         <option value="">-- Brand --</option>
                                         @foreach(\App\Models\Brand::get() as $brand)
@@ -115,8 +145,8 @@
                                     </select>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12 col-sm-12"> 
-                                    <label for="">Category</label>                               
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label for="">Category</label>
                                     <select id="cat_id" name="cat_id" class="form-control show-tick">
                                         <option value="">-- Category --</option>
                                         @foreach(\App\Models\Category::where('is_parent',1)->get() as $category)
@@ -125,15 +155,15 @@
                                     </select>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12 col-sm-12 d-none" id="child_cat_div"> 
-                                    <label for="">Child Category</label>                               
+                                <div class="col-lg-12 col-md-12 col-sm-12 d-none" id="child_cat_div">
+                                    <label for="">Child Category</label>
                                     <select name="child_cat_id" id="child_cat_id" class="form-control show-tick">
-                                        
+
                                     </select>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12 col-sm-12"> 
-                                    <label for="">Size</label>                               
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label for="">Size</label>
                                     <select name="size" class="form-control show-tick">
                                         <option value="">-- Size --</option>
                                         <option value="S" {{$product->size=='S'?'selected': ''}}>Small</option>
@@ -142,8 +172,8 @@
                                         <option value="XL" {{$product->size=='XL'?'selected': ''}}>Extra Large</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12"> 
-                                    <label for="">Condition</label>                               
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label for="">Condition</label>
                                     <select name="condition" class="form-control show-tick">
                                         <option value="">-- Conditions --</option>
                                         <option value="new" {{$product->condition=='new'?'selected': ''}}>New</option>
@@ -152,8 +182,8 @@
                                     </select>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12 col-sm-12"> 
-                                    <label for="">Vendors</label>                               
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label for="">Vendors</label>
                                     <select name="vendor_id" class="form-control show-tick">
                                         <option value="">-- Vendors --</option>
                                         @foreach(\App\Models\User::where('role','vendor')->get() as $vendor)
@@ -162,7 +192,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12 col-sm-12">                                
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <select name="status" class="form-control show-tick">
                                         <option value="">-- status --</option>
                                         <option value="active" {{$product->status=='active'?'selected': ''}}>Active</option>
@@ -170,7 +200,7 @@
                                     </select>
                                 </div>
                             </div>
-    
+
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 {{-- <button type="submit" class="btn btn-outline-secondary">Cancel</button> --}}
@@ -188,30 +218,29 @@
 @section('scripts')
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
-    $('#lfm').filemanager('image');
+    $('#lfm,#lfm1').filemanager('image');
 </script>
 <script>
     $(document).ready(function() {
-        $('#description').summernote();
+        $('.description').summernote();
     });
 </script>
 <script>
     var child_cat_id={{$product->child_cat_id}};
     $('#cat_id').change(function(event){
         event.preventDefault();
-        
+
         var cat_id=$('#cat_id').val();
-        // var url = '{{ route("category.child", ":cat_id") }}';
+        {{--// var url = '{{ route("category.child", ":cat_id") }}';--}}
         // url = url.replace(':cat_id', id);
         // alert(cat_id);
-        if(cat_id !=null){
-            
+        if(cat_id!=null){
             $.ajax({
                 url: window.location.origin + "/admin/category/child/" + cat_id,
                 type:"POST",
                 data:{
                     _token:"{{csrf_token()}}",
-                    cat_id=cat_id,
+                    cat_id:cat_id,
                 },
                 success:function(response){
                     var html_option="<option value=''>--child category--</option>";
@@ -220,7 +249,7 @@
                         $.each(response.data,function(title,id){
                             html_option +='<option value="'+id+'" "+(child_cat_id==?'selected':'')+">'+title+'</option>'
                         });
-                    
+
                     }
                     else{
                         $('#v').addClass('d-none');
@@ -229,7 +258,7 @@
                 }
             });
         }
-        
+
     });
     if(child_cat_id !=null){
         $('#cat_id');
