@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductAttribute;
+use http\Exception\BadConversionException;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use function Termwind\ValueObjects\capitalize;
 
 class ProductController extends Controller
 {
@@ -88,14 +91,55 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        // $product=Product::find($id);
-        
-        // if($product){
-        //     return view('backend.product.view',compact(['product']));
-        // }else{
-        //     return back()->with('error','Product not Found');
-        // }
-        
+        $product=Product::find($id);
+        $productAttribute=ProductAttribute::where('product_id',$id)->orderBy('id','DESC')->get();
+        if($product){
+            return view('backend.product.product-attribute',compact(['product','productAttribute']));
+        }
+        else{
+            return back()->with('error','Product not found');
+        }
+    }
+
+    public function addProductAttribute(Request $request,$id){
+
+//        $this->validate($request,[
+//            'size'=> 'nullable|string',
+//            'original_price'=> 'nullable|numeric',
+//            'offer_price'=> 'nullable|numeric',
+//            'stock'=> 'nullable|numeric',
+//        ]);
+        $data= $request->all();
+        foreach ($data['original_price'] as $key=>$val){
+            if(!empty($val)){
+                $attribute=new ProductAttribute;
+                $attribute['original_price']=$val;
+                $attribute['offer_price']=$data['offer_price'][$key];
+                $attribute['stock']=$data['stock'][$key];
+                $attribute['size']=$data['size'][$key] ;
+                $attribute['product_id']=$id;
+
+                $attribute->save();
+            }
+        }
+        return back()->with('success','Product Attribute added successfully');
+    }
+
+    public function destroyProductAttribute($id){
+        $productAttribute=ProductAttribute::find($id);
+
+        if($productAttribute){
+            $status=$productAttribute->delete();
+            if($status){
+
+                return back()->with('success','Product successfully deleted');
+            }
+            else{
+                return back()->with('errors','Something wrong');
+            }
+        }else{
+            return back()->with('errors','Data not found');
+        }
     }
 
     /**
@@ -107,7 +151,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product=Product::find($id);
-        
+
         if($product){
             return view('backend.product.edit',compact('product'));
         }else{
@@ -154,7 +198,7 @@ class ProductController extends Controller
         }
     }
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -165,11 +209,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product=Product::find($id);
-       
+
         if($product){
             $status=$product->delete();
             if($status){
-                
+
                 return redirect()->route('product.index')->with('success','Product successfully deleted');
             }
             else{

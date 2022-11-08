@@ -93,8 +93,11 @@
                                              data-size="sm" data-onstyle="success" data-offstyle="danger">
                                         </td>
                                         <td>
+                                            <a href="{{route('product.show',$item->id)}}" title="add-attribute"
+                                               class="float-left btn btn-sm btn-outline-secondary mr-1 mb-1" data-placement="bottom"><i class="fas fa-play-circle"></i></a>
+
                                             <a href="javascript:void(0);" data-toggle="modal" data-target="#productID{{$item->id}}" title="view"
-                                                class="float-left btn btn-sm btn-outline-secondary" data-placement="bottom"><i class="fas fa-eye"></i></a>
+                                                class="float-left btn btn-sm btn-outline-info" data-placement="bottom"><i class="fas fa-eye"></i></a>
                                                 <a href="{{route('product.edit',$item->id)}}" data-toggle="tooltip" title="edit"
                                                     class="float-left btn btn-sm btn-outline-warning" data-placement="bottom"><i class="fas fa-edit"></i></a>
                                                 <form class="float-left ml-1" action="{{route('product.destroy',$item->id)}}" method="POST">

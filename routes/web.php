@@ -111,6 +111,9 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
     Route::resource('/product',ProductController::class);
     Route::post('/product_status',[ProductController::class,'product_status'])->name('product.status');
 
+    //product attribute section
+    Route::post('product-attribute/{id}',[ProductController::class,'addProductAttribute'])->name('product.attribute');
+    Route::delete('product-attribute-destroy/{id}',[ProductController::class,'destroyProductAttribute'])->name('product.attribute.destroy');
     //user section
     Route::resource('/user',UserController::class);
     Route::post('/user_status',[UserController::class,'user_status'])->name('user.status');
