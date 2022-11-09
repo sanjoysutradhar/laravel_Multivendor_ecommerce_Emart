@@ -119,20 +119,19 @@ class IndexController extends Controller
             'email'=>'email|required|exists:users,email',
             'password'=>'required|min:4'
         ]);
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'role'=>'admin','status'=>'active'])){
-            Session::put('admin',$request->email);
-            if(Session::get('url.intended')){
-                return Redirect::to(Session::get('url.intended'));
-            }
-            else{
-                return redirect()->route('home')->with('success', 'Successfully logged in');
-            }
-        }
-        elseif(Auth::attempt(['email'=>$request->email, 'password'=>$request->password,'role'=>'customer','status'=>'active'])){
+//        if(Auth::guard('admin')->attempt(['email'=>$request->email,'password'=>$request->password])){
+//            if(Session::get('url.intended')){
+//                return Redirect::to(Session::get('url.intended'))->with('success', 'Successfully logged in');
+//            }
+//            else{
+//                return redirect()->route('home')->with('success', 'Successfully logged in');
+//            }
+//        }
+        if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password,'status'=>'active'])){
             Session::put('user',$request->email);
 
             if(Session::get('url.intended')){
-                return Redirect::to(Session::get('url.intended'));
+                return Redirect::to(Session::get('url.intended'))->with('success', 'Successfully logged in');
             }
             else{
                 return redirect()->route('user.home')->with('success', 'Successfully logged in');

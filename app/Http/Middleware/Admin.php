@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Admin
 {
@@ -16,12 +17,15 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role=="admin"){
-            return $next($request);
+//        if(auth()->user()->role=="admin"){
+        if(Auth::guard('admin')->check()){
+                return $next($request);
+            }
+            else{
+//                return redirect()->route(auth()->role)->with('error',"you don't have access");
+                return redirect()->route('admin.login.form')->with('error',"you don't have access");
+            }
         }
-        else{
-            return redirect()->route(auth()->role)->with('error',"you don't have access");
-        }
-        
-    }
+
+
 }

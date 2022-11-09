@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ShippingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -90,8 +92,14 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('admin');
 
+//Admin
+Route::group(['prefix'=>'admin'],function (){
+    Route::get('login/',[\App\Http\Controllers\Auth\Admin\LoginController::class,'showLoginForm'])->name('admin.login.form');
+    Route::post('login/',[\App\Http\Controllers\Auth\Admin\LoginController::class,'login'])->name('admin.login');
+});
 //Admin Dashboard
-Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
+//Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
+Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
     Route::get('/',[AdminController::class,'admin'])->name('admin');
     // Banner section
     Route::resource('/banner',BannerController::class);
@@ -114,6 +122,10 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
     //product attribute section
     Route::post('product-attribute/{id}',[ProductController::class,'addProductAttribute'])->name('product.attribute');
     Route::delete('product-attribute-destroy/{id}',[ProductController::class,'destroyProductAttribute'])->name('product.attribute.destroy');
+
+    // product review
+    Route::post('product-review/{slug}',[ProductReviewController::class,'productReview'])->name('product.review');
+
     //user section
     Route::resource('/user',UserController::class);
     Route::post('/user_status',[UserController::class,'user_status'])->name('user.status');

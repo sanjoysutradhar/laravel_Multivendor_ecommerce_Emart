@@ -19,32 +19,34 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert(
         [
             [
-            'full_name'=>'sanjoy admin',
-            'username'=>'admin',
-            'email'=>'admin@gmail.com',
-            'password'=>Hash::make('12345678'),
-            'role'=>'admin',
-            'status'=>'active'
-            ],
-            [
-                'full_name'=>'sanjoy seller',
-                'username'=>'seller',
-                'email'=>'seller@gmail.com',
-                'password'=>Hash::make('12345678'),
-                'role'=>'seller',
-                'status'=>'active'
-            ],
-            [
                 'full_name'=>'sanjoy customer',
                 'username'=>'customer',
                 'email'=>'customer@gmail.com',
                 'password'=>Hash::make('12345678'),
-                'role'=>'customer',
                 'status'=>'active'
             ]
-                
-            
-
         ]);
+
+        // Admin
+        DB::table('admins')->insert(
+            [
+                [
+                    'full_name'=>'sanjoy admin',
+                    'email'=>'admin@gmail.com',
+                    'password'=>Hash::make('12345678'),
+                    'status'=>'active'
+                ]
+            ]);
+        //Seller
+//        DB::table('sellers')->insert(
+//        [
+//            [
+//                'full_name'=>'sanjoy seller',
+//                'username'=>'seller',
+//                'email'=>'seller@gmail.com',
+//                'password'=>Hash::make('12345678'),
+//                'status'=>'active'
+//            ]
+//        ]);
     }
 }

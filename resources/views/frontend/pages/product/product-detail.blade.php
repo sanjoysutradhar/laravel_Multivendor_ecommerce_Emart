@@ -89,7 +89,7 @@
         </div>
     </div>
     <!-- Breadcumb Area -->
-
+    @include('backend.layouts.notification')
     <!-- Single Product Details Area -->
     <section class="single_product_details_area section_padding_100">
         <div class="container">
@@ -245,7 +245,12 @@
                                 <a href="#description" class="nav-link active" data-toggle="tab" role="tab">Description</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#reviews" class="nav-link" data-toggle="tab" role="tab">Reviews <span class="text-muted">(3)</span></a>
+                                @php
+                                    $productReview=\App\Models\ProductReview::where('product_id',$product->id)->get();
+                                @endphp
+                                <a href="#reviews" class="nav-link" data-toggle="tab" role="tab">
+                                    Reviews
+                                    <span class="text-muted">({{count($productReview)}})</span></a>
                             </li>
                             <li class="nav-item">
                                 <a href="#addi-info" class="nav-link" data-toggle="tab" role="tab">Additional Information</a>
@@ -264,92 +269,91 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane fade" id="reviews">
-                                <div class="reviews_area">
+
+                                <div class="submit_a_review_area mt-50">
+                                    <p><a href="{{route('user.auth')}}">Click here!</a> to Login</p>
+                                @auth
+                                    <form action="{{route('product.review',$product->slug)}}" method="POST">
+                                        @csrf
+                                        <div class="form-group">
+                                            <span>Your Ratings</span>
+                                            <div class="stars">
+                                                <input type="radio" name="rate" class="star-1" id="star-1" value="1">
+                                                <label class="star-1" for="star-1">1</label>
+                                                <input type="radio" name="rate" class="star-2" id="star-2" value="2">
+                                                <label class="star-2" for="star-2">2</label>
+                                                <input type="radio" name="rate" class="star-3" id="star-3" value="3">
+                                                <label class="star-3" for="star-3">3</label>
+                                                <input type="radio" name="rate" class="star-4" id="star-4" value="4">
+                                                <label class="star-4" for="star-4">4</label>
+                                                <input type="radio" name="rate" class="star-5" id="star-5" value="5">
+                                                <label class="star-5" for="star-5">5</label>
+                                                <span></span>
+                                            </div>
+                                            @error('rate')
+                                            <p class="text-danger">{{$message}}</p>
+                                            @enderror
+                                        </div>
+                                        <input type="text" hidden name="user_id" value="{{auth()->user()->id}}">
+                                        <input type="text" hidden name="product_id" value="{{$product->id}}">
+                                        <div class="form-group">
+                                            <label for="name">Nickname</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{auth()->user()->full_name}}" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="options">Reason for your rating</label>
+                                            <select name="reason" class="form-control small right py-0 w-100" id="options">
+                                                <option value="quality" {{old('reason')=='quality'? 'selected': ''}}>Quality</option>
+                                                <option value="value" {{old('reason')=='value'? 'selected': ''}}>Value</option>
+                                                <option value="design" {{old('reason')=='design'? 'selected': ''}}>Design</option>
+                                                <option value="price" {{old('reason')=='price'? 'selected': ''}}>Price</option>
+                                                <option value="others" {{old('reason')=='others'? 'selected': ''}}>Others</option>
+                                            </select>
+                                        </div>
+                                        @error('reason')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                        <div class="form-group">
+                                            <label for="comments">Comments</label>
+                                            <textarea class="form-control" id="comments" name="review" rows="5" data-max-length="150"></textarea>
+                                        </div>
+                                        @error('review')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                                    </form>
+                                </div>
+                                @else
+                                    <p>You need to login for giving a review</p>
+                                @endif
+                                <br>
+                                <div class="reviews_area mt-5">
+                                    @php
+                                        $productReviews=\App\Models\ProductReview::where('product_id',$product->id)->latest()->get();
+                                    @endphp
                                     <ul>
                                         <li>
-                                            <div class="single_user_review mb-15">
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <span>for Quality</span>
-                                                </div>
-                                                <div class="review-details">
-                                                    <p>by <a href="#">Designing World</a> on <span>12 Sep 2019</span></p>
-                                                </div>
-                                            </div>
-                                            <div class="single_user_review mb-15">
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <span>for Design</span>
-                                                </div>
-                                                <div class="review-details">
-                                                    <p>by <a href="#">Designing World</a> on <span>12 Sep 2019</span></p>
-                                                </div>
-                                            </div>
-                                            <div class="single_user_review">
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <span>for Value</span>
-                                                </div>
-                                                <div class="review-details">
-                                                    <p>by <a href="#">Designing World</a> on <span>12 Sep 2019</span></p>
-                                                </div>
-                                            </div>
+                                            @if(count($productReviews)>0)
+                                                @foreach($productReviews as $review)
+                                                    <div class="single_user_review mb-15">
+                                                        <div class="review-rating">
+                                                            @for($i=0; $i < $review->rate; $i++)
+                                                                <i class="fa-solid fa-star"></i>
+                                                            @endfor
+                                                            <span>for {{$review->reason}}</span>
+                                                        </div>
+                                                        <div class="review-details">
+                                                            <p>by <a href="#">{{\App\Models\User::where('id',$review->user_id)->value('full_name')}}</a> on <span>{{\Carbon\Carbon::parse($review->created_at)->format('M d Y')}}</span></p>
+                                                        </div>
+                                                        <p>{{$review->review}}</p>
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         </li>
                                     </ul>
                                 </div>
 
-                                <div class="submit_a_review_area mt-50">
-                                    <h4>Submit A Review</h4>
-                                    <form action="#" method="post">
-                                        <div class="form-group">
-                                            <span>Your Ratings</span>
-                                            <div class="stars">
-                                                <input type="radio" name="star" class="star-1" id="star-1">
-                                                <label class="star-1" for="star-1">1</label>
-                                                <input type="radio" name="star" class="star-2" id="star-2">
-                                                <label class="star-2" for="star-2">2</label>
-                                                <input type="radio" name="star" class="star-3" id="star-3">
-                                                <label class="star-3" for="star-3">3</label>
-                                                <input type="radio" name="star" class="star-4" id="star-4">
-                                                <label class="star-4" for="star-4">4</label>
-                                                <input type="radio" name="star" class="star-5" id="star-5">
-                                                <label class="star-5" for="star-5">5</label>
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Nickname</label>
-                                            <input type="email" class="form-control" id="name" placeholder="Nazrul">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="options">Reason for your rating</label>
-                                            <select class="form-control small right py-0 w-100" id="options">
-                                                <option>Quality</option>
-                                                <option>Value</option>
-                                                <option>Design</option>
-                                                <option>Price</option>
-                                                <option>Others</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="comments">Comments</label>
-                                            <textarea class="form-control" id="comments" rows="5" data-max-length="150"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit Review</button>
-                                    </form>
-                                </div>
+
                             </div>
 
                             <div role="tabpanel" class="tab-pane fade" id="addi-info">

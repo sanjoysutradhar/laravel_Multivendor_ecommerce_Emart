@@ -20,6 +20,7 @@
 </head>
 
 <body class="theme-blue">
+@include('backend.layouts.notification')
 	<!-- WRAPPER -->
 	<div id="wrapper">
 		<div class="vertical-align-wrap">
@@ -33,7 +34,7 @@
                             <p class="lead">Login to your account</p>
                         </div>
                         <div class="body">
-                            <form class="form-auth-small" method="POST" action="{{ route('login') }}">
+                            <form class="form-auth-small" method="POST" action="{{ route('admin.login') }}">
                                 @csrf
                                 <div class="form-group">
                                     <label for="signin-email" class="control-label sr-only">Email</label>
