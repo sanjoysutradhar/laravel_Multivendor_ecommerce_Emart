@@ -54,6 +54,8 @@ class CheckoutController extends Controller
     public function checkout2Store(Request $request){
 //        echo "<pre>";
 //        print_r($request->all());
+//        exit();
+
         $this->validate($request,[
             'delivery_charge'=>'required|numeric'
         ]);

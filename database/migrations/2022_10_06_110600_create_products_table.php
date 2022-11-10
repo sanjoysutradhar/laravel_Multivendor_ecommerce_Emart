@@ -40,7 +40,7 @@ return new class extends Migration
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('child_cat_id')->references('id')->on('categories')->onDelete('SET NULL');
-            $table->foreign('vendor_id')->references('id')->on('users')->onDelete('SET NULL');
+            $table->foreign('vendor_id')->references('id')->on('sellers')->onDelete('SET NULL');
             $table->timestamps();
         });
     }

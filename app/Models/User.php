@@ -27,7 +27,6 @@ class User extends Authenticatable
         'password',
         'address',
         'shiping_address',
-        'role',
         'status',
         'country',
         'city',

@@ -181,11 +181,11 @@
                                 </div>
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <label for="">Vendors</label>
+                                    <label for="">Sellers</label>
                                     <select name="vendor_id" class="form-control show-tick">
-                                        <option value="">-- Vendors --</option>
-                                        @foreach(\App\Models\User::where('role','vendor')->get() as $vendor)
-                                            <option value="{{$vendor->id}}" {{old(('vendor_id')==$vendor->id? 'selected':'')}}>{{$vendor->full_name}}</option>
+                                        <option value="">-- Sellers --</option>
+                                        @foreach(\App\Models\Seller::where('status','active')->get() as $seller)
+                                            <option value="{{$seller->id}}" {{old(('vendor_id')==$seller->id? 'selected':'')}}>{{$seller->full_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
