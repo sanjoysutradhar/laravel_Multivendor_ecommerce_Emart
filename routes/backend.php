@@ -2,6 +2,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ShippingController;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +64,9 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
     //shipping section
     Route::resource('/shipping',ShippingController::class);
     Route::post('/shipping_status',[ShippingController::class,'shipping_status'])->name('shipping.status');
-
+    // order section
+    Route::resource('order',OrderController::class);
+    Route::post('/order/status',[OrderController::class,'orderStatus'])->name('order.status');
 
 });
 

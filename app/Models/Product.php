@@ -39,4 +39,7 @@ class Product extends Model
     public static function getProductByCart($id){
         return self::where('id',$id)->get()->toArray();
     }
+    public function orders(){
+        return $this->belongsToMany(Order::class,'product_orders')->withPivot('quantity');
+    }
 }

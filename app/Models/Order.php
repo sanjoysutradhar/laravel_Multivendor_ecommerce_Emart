@@ -19,4 +19,8 @@ class Order extends Model
         'shipping_first_name','shipping_last_name','shipping_email','shipping_phone','shipping_address',
         'shipping_country','shipping_city','shipping_state','shipping_postcode',
     ];
+
+    public function products(){
+        return $this->belongsToMany(Product::class,'product_orders')->withPivot('quantity');
+    }
 }

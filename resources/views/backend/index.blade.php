@@ -71,7 +71,7 @@
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th style="width:60px;">#</th>
@@ -79,23 +79,47 @@
                                         <th>Address</th>
                                         <th>Sub Total</th>
                                         <th>Coupon</th>
+                                        <th>condition</th>
                                         <th>Payment Method</th>
                                         <th>Total Amount</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php
-                                    $orders=\App\Models\Order::get();
-                                    @endphp
-                                    @foreach($orders as $order)
+                                    @foreach($orders as $item)
                                         <tr>
-                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
-                                            <td>{{$order->order_number}}</td>
-                                            <td>{{$order->address}}</td>
-                                            <td>$ {{$order->sub_total}}</td>
-                                            <td>$ {{$order->coupon}}</td>
-                                            <td>{{$order->payment_method}}</td>
-                                            <td>$ {{$order->total_amount}}</td>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$item->order_number}}</td>
+                                            <td>{{$item->address}}</td>
+                                            <td>$ {{$item->sub_total}}</td>
+                                            <td>$ {{$item->coupon}}</td>
+                                            <td><span class="badge badge-
+                                                    @if($item->condition=='pending')
+                                                    info
+                                                    @elseif($item->condition=='processing')
+                                                    primary
+                                                    @elseif($item->condition=='complete')
+                                                    success
+                                                    @elseif($item->condition=='cancel')
+                                                    danger
+                                                    @endif
+                                                    ">{{$item->condition}}</span></td>
+                                            <td>{{$item->payment_method}}</td>
+                                            <td>$ {{$item->total_amount}}</td>
+                                            <td>
+                                                <a href="javascript:void(0);" data-toggle="modal" data-target="#productID" title="view"
+                                                   class="float-left btn btn-sm btn-outline-info" data-placement="bottom"><i class="fas fa-eye"></i></a>
+                                                <form class="float-left ml-1" action="#" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button data-toggle="tooltip" title="delete" data-id=""
+                                                            class="dltBtn btn btn-sm btn-outline-danger" data-placement="bottom">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                    {{-- <a href="" data-toggle="tooltip" title="delete" data-id="{{$item->id}}" class="dltBtn btn btn-sm btn-outline-danger" data-placement="bottom"><i class="fas fa-trash-alt"></i></a> --}}
+                                                </form>
+
+                                            </td>
                                         </tr>
                                     @endforeach
 

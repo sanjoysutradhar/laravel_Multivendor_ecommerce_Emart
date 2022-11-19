@@ -13,6 +13,8 @@
             <div id="navbar-menu">
                 <ul class="nav navbar-nav">
                     <li>
+                        <a href="{{route('user.home')}}" target="_blank" class="icon-menu d-none d-sm-block"><i class="icon-home"></i></a>
+                    </li><li>
                         <a href="app-inbox.html" class="icon-menu d-none d-sm-block"><i class="icon-envelope"></i><span class="notification-dot"></span></a>
                     </li>
                     <li class="dropdown">

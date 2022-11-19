@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Mail\OrderMail;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Shipping;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -156,8 +157,15 @@ class CheckoutController extends Controller
 
 //        Mail::to($order['email'])->bcc($order['shipping_email'])->cc('shanjoy.swe@gmail.com')->send(new OrderMail($order));
 //        dd('Mail is sent');
-
         $status=$order->save();
+
+        foreach(Cart::instance('shopping')->content() as $item){
+            $product_id[]=$item->id;
+            $product=Product::find($item->id);
+            $quantity=$item->qty;
+            $order->products()->attach($product,['quantity'=>$quantity]);
+        }
+
         if($status){
             Mail::to($order['email'])->bcc($order['shipping_email'])->cc('shanjoy.swe@gmail.com')->send(new OrderMail($order));
             Cart::instance('shopping')->destroy();

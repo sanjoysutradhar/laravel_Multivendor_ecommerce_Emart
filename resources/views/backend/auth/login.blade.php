@@ -20,14 +20,17 @@
 </head>
 
 <body class="theme-blue">
-@include('backend.layouts.notification')
+
 	<!-- WRAPPER -->
 	<div id="wrapper">
 		<div class="vertical-align-wrap">
+
 			<div class="vertical-align-middle auth-main">
-				<div class="auth-box">
+				<div class="auth-box mx-auto">
+                    @include('backend.layouts.notification')
                     <div class="top">
-                        <img src="{{asset('backend//assets/images/logo-white.svg')}}" alt="Lucid">
+                        <h4 class="text-center">EMart</h4>
+{{--                        <img src="{{asset('backend//assets/images/logo-white.svg')}}" alt="Lucid">--}}
                     </div>
 					<div class="card">
                         <div class="header">
@@ -63,7 +66,7 @@
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
                                 <div class="bottom">
                                     <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="page-forgot-password.html">Forgot password?</a></span>
-                                    <span>Don't have an account? <a href="page-register.html">Register</a></span>
+{{--                                    <span>Don't have an account? <a href="page-register.html">Register</a></span>--}}
                                 </div>
                             </form>
                         </div>

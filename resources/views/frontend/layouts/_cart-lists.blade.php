@@ -8,6 +8,7 @@
                     <th scope="col"><i class="icofont-ui-delete"></i></th>
                     <th scope="col">Image</th>
                     <th scope="col">Product</th>
+                    <th scope="col">Product Size</th>
                     <th scope="col">Unit Price</th>
                     <th scope="col">Quantity</th>
                     <th scope="col  ">Total</th>
@@ -28,9 +29,11 @@
                                 <img src="{{$photos[0]}}" class="cart-thumb" alt="">
                             @endif
                         </td>
+
                         <td>
                             <a href="{{route('product.detail',$item->model->slug)}}">{{$item->name}}</a>
                         </td>
+                        <td></td>
                         <td>${{$item->price}}</td>
                         <td>
                             <div class="quantity">

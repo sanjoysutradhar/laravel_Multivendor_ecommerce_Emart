@@ -46,7 +46,7 @@
                                 <li><a href="{{route('user.create')}}">Add Users</a></li>
                             </ul>
                         </li>
-                        <li><a href="app-inbox.html"><i class="icon-layers"></i>Order Management</a></li>
+                        <li><a href="{{route('order.index')}}"><i class="icon-layers"></i>Order Management</a></li>
 
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="fas fa-truck"></i><span>Shipping Management</span> </a>
                             <ul>
