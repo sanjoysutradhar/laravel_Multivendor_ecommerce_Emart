@@ -16,6 +16,7 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\CouponContoller;
+use App\Http\Controllers\CurrencyController;
 
 
 
@@ -51,7 +52,7 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
     Route::delete('product-attribute-destroy/{id}',[ProductController::class,'destroyProductAttribute'])->name('product.attribute.destroy');
 
     // product review
-    Route::post('product-review/{slug}',[ProductReviewController::class,'productReview'])->name('product.review');
+    Route::post('/product-review/{slug}',[ProductReviewController::class,'productReview'])->name('product.review');
 
     //user section
     Route::resource('/user',UserController::class);
@@ -65,8 +66,11 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
     Route::resource('/shipping',ShippingController::class);
     Route::post('/shipping_status',[ShippingController::class,'shipping_status'])->name('shipping.status');
     // order section
-    Route::resource('order',OrderController::class);
+    Route::resource('/order',OrderController::class);
     Route::post('/order/status',[OrderController::class,'orderStatus'])->name('order.status');
+    // Currency section
+    Route::resource('/currency',CurrencyController::class);
+    Route::post('/currency/status',[CurrencyController::class,'currencyStatus'])->name('currency.status');
 
 });
 

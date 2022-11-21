@@ -7,11 +7,11 @@
 
 <body>
     <!-- Preloader -->
-    <div id="preloader">
+    {{-- <div id="preloader">
         <div class="spinner-grow" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Header Area -->
     <header class="header_area" id="header-ajax">
@@ -90,6 +90,31 @@
 {{--            });--}}
 {{--        });--}}
 {{--    </script>--}}
+<script>
+    function currency_change(currency_code){
+        // alert(currency_code);
+        // console.log(currency_code);
+        $.ajax({
+            type:'POST',
+            url:'{{route('currency.load')}}',
+            data:{
+                currency_code:currency_code,
+                _token:'{{csrf_token()}}',
+            },
+            success:function(response){
+                if(response['status']){
+                    location.reload();
+                }else{
+                    alert('server error');
+                }
+            },
+            error: function() {
+                alert('hi error');
+            }
+        })
+
+    }
+</script>
 </body>
 
 </html>

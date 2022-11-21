@@ -50,8 +50,14 @@
 
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="fas fa-truck"></i><span>Shipping Management</span> </a>
                             <ul>
-                                <li><a href="{{route('shipping.index')}}">All Departments</a></li>
-                                <li><a href="{{route('shipping.create')}}">Add Departments</a></li>
+                                <li><a href="{{route('shipping.index')}}">All Shipping</a></li>
+                                <li><a href="{{route('shipping.create')}}">Add Shipping</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0);" class="has-arrow"><i class="fas fa-money-bill-alt"></i><span>Currency Management</span> </a>
+                            <ul>
+                                <li><a href="{{route('currency.index')}}">All Currencies</a></li>
+                                <li><a href="{{route('currency.create')}}">Add Currency</a></li>
                             </ul>
                         </li>
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="fas fa-sitemap"></i><span>Post Category</span> </a>

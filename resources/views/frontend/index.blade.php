@@ -218,7 +218,8 @@
                                 <p class="brand_name">{{\App\Models\Brand::where('id',$item->brand_id)->value('title')}}</p>
                                 <a href="{{route('product.detail',$item->slug)}}">{{ucfirst($item->title)}}</a>
                                 <h6 class="product-price">
-                                    ${{number_format($item->offer_price,2)}}
+                                    {{-- ${{number_format($item->offer_price,2)}} --}}
+                                    {{Helper::currencyConverter($item->offer_price)}}
                                     <small>
                                         <del class="text-danger">
                                             ${{number_format($item->price,2)}}

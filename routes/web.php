@@ -16,6 +16,7 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\CouponContoller;
+use App\Http\Controllers\CurrencyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ use App\Http\Controllers\CouponContoller;
 
 require __DIR__ . '/frontend.php';
 require __DIR__ . '/backend.php';
+
+Route::post('/currency_load',[CurrencyController::class,'currencyLoad'])->name('currency.load');
 
 Auth::routes(['register'=>false]);
 //seller

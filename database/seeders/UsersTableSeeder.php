@@ -37,6 +37,7 @@ class UsersTableSeeder extends Seeder
                     'status'=>'active'
                 ]
             ]);
+            
         //Seller
 //        DB::table('sellers')->insert(
 //        [

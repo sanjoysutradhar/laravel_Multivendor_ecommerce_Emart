@@ -31,13 +31,33 @@
                         <!-- Currency Dropdown -->
                         <div class="currency-dropdown">
                             <div class="dropdown">
+                                @php
+                                Helper::currencyLoad();
+                                // dd($helper->);
+                                // exit();
+                                 $currency_code=Session::get('currency_code');
+                                 $currency_symbol=Session::get('currency_symbol');
+                                //  $currency_exchange_rate=session('currency_exchange_rate');
+                            
+                                if($currency_symbol==""){
+                                    $system_default_currency_info=session('system_default_currency_info');
+                                    // print_r($system_default_currency_info->symbol);
+                                    // exit();
+                                    $currency_symbol=$system_default_currency_info->symbol;
+                                    $currency_code=$system_default_currency_info->code;
+                                    // $exchange_rate=$system_default_currency_info->exchange_rate;
+                                }
+                            
+                                @endphp
                                 <a class="btn btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenu2"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    $ USD
+                                    {{$currency_symbol}} {{$currency_code}}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                                    <a class="dropdown-item" href="#">৳ BDT</a>
-                                    <a class="dropdown-item" href="#">€ Euro</a>
+                                    @foreach(\App\Models\Currency::all() as $currency)
+                                    <a class="dropdown-item" href="javascript:0;" onclick="currency_change('{{$currency['code']}}')">{{$currency->symbol}} {{\Illuminate\Support\Str::upper($currency->code)}}</a>
+                                    @endforeach
+                                    {{-- <a class="dropdown-item" href="#">€ Euro</a> --}}
                                 </div>
                             </div>
                         </div>
@@ -342,7 +362,6 @@
             </div>
         </div>
     </div>
-
 
 
 
