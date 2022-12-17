@@ -17,6 +17,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\CouponContoller;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\SettingController;
 
 
 
@@ -72,9 +73,15 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
     Route::resource('/currency',CurrencyController::class);
     Route::post('/currency/status',[CurrencyController::class,'currencyStatus'])->name('currency.status');
 
+    //Setting
+    Route::get('/setting',[SettingController::class,'setting'])->name('setting');
+    Route::post('/setting/update/{id}',[SettingController::class,'update'])->name('setting.update');
+
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('admin');
+
+
 
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth:admin']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

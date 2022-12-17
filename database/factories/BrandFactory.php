@@ -21,7 +21,7 @@ class BrandFactory extends Factory
         return [
             'title'=>fake()->word,
             'slug'=>fake()->unique()->slug,
-            'photo'=>fake()->imageUrl(width:60, height:60),
+            'photo'=>fake()->imageUrl(60, 60),
             'status'=>fake()->randomElement(['active','inactive']),
         ];
     }

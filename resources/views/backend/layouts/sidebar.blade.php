@@ -99,7 +99,7 @@
                                 <li><a href="add-departments.html">Add Departments</a></li>
                             </ul>
                         </li>
-                        <li><a href="app-inbox.html"><i class="icon-settings"></i>Settings</a></li>
+                        <li><a href="{{route('setting')}}"><i class="icon-settings"></i>Settings</a></li>
                     </ul>
                 </nav>
             </div>

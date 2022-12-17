@@ -21,7 +21,7 @@ class helper{
     // currency converter
     public static function currencyConverter($amount){
         return formatPrice(convertPrice($amount));
-        
+
     }
 }
 
@@ -41,9 +41,11 @@ if(!function_exists('convertPrice')){
         if(Session::has('currency_exchange_rate')){
             $exchange=session('currency_exchange_rate');
         }else{
-            $exchange=$system_default_currency_info;
+            $exchange=$system_default_currency_info->exchange_rate;
         }
-        $price=floatval($price)*floatval($exchange);
+//        echo($exchange);
+//        exit();
+        $price=floatval($price)* floatval($exchange);
 
         return $price;
     }

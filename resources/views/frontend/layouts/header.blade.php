@@ -9,7 +9,7 @@
                         <span class="popover--text" data-toggle="popover"
                             data-content="Welcome to Bigshop ecommerce template."><i
                                 class="icofont-info-square"></i></span>
-                        <span class="text">Welcome to E-mart ecommerce website.</span>
+                        <span class="text">Welcome to {{$setting->title}}.</span>
                     </div>
                 </div>
                 <div class="col-6">
@@ -38,7 +38,7 @@
                                  $currency_code=Session::get('currency_code');
                                  $currency_symbol=Session::get('currency_symbol');
                                 //  $currency_exchange_rate=session('currency_exchange_rate');
-                            
+
                                 if($currency_symbol==""){
                                     $system_default_currency_info=session('system_default_currency_info');
                                     // print_r($system_default_currency_info->symbol);
@@ -47,7 +47,7 @@
                                     $currency_code=$system_default_currency_info->code;
                                     // $exchange_rate=$system_default_currency_info->exchange_rate;
                                 }
-                            
+
                                 @endphp
                                 <a class="btn btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenu2"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -74,7 +74,7 @@
                 <nav class="classy-navbar" id="bigshopNav">
 
                     <!-- Nav Brand -->
-                <a href="\" class="nav-brand"><img src="{{asset('frontend/img/core-img/logo.png')}}" alt="logo"></a>
+                <a href="\" class="nav-brand"><img src="{{asset($setting->logo)}}" alt="logo"></a>
 
                     <!-- Toggler -->
                     <div class="classy-navbar-toggler">
